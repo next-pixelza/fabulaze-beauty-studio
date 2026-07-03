@@ -1,1 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeautyStudio by Danica - Fabulaze Hair & Beauty</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        .brand-script {
+            font-family: 'Alex Brush', cursive;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #000000;
+            overflow-x: hidden;
+        }
+        /* Custom scroll-driven fade-in animation rules */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform;
+        }
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#E2B94F',
+                        darkBg: '#000000',
+                        cardBg: '#121212',
+                        accentGray: '#333333',
+                        textColor: '#F3F3F3'
+                    }
+                }
+            }
+        }
+        
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+        
+        function toggleDropdown(id) {
+            const dropdown = document.getElementById(id);
+            dropdown.classList.toggle('hidden');
+        }
 
+        // Accordion Toggle Engine
+        function toggleServiceAccordion(id) {
+            const target = document.getElementById(id);
+            const icon = document.getElementById(id + '-icon');
+            
+            if (target.classList.contains('hidden')) {
+                target.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                target.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // PMU Slider Engine
+        let currentPmuSlide = 0;
+        const totalPmuSlides = 6;
+
+        function showPmuSlide(index) {
+            const track = document.getElementById('pmuTrack');
+            if (!track) return;
+            
+            if (index >= totalPmuSlides) currentPmuSlide = 0;
+            else if (index < 0) currentPmuSlide = totalPmuSlides - 1;
+            else currentPmuSlide = index;
+
+            track.style.transform = `translateX(-${currentPmuSlide * 100}%)`;
+        }
+
+        function nextPmuSlide() { showPmuSlide(currentPmuSlide + 1); }
+        function prevPmuSlide() { showPmuSlide(currentPmuSlide - 1); }
+
+        let pmuInterval = setInterval(nextPmuSlide, 5000);
+        function resetPmuInterval() {
+            clearInterval(pmuInterval);
+            pmuInterval = setInterval(nextPmuSlide, 5000);
+        }
+
+        // Intersection Observer logic for scroll animations
+        document.addEventListener("DOMContentLoaded", () => {
+            const reveals = document.querySelectorAll('.scroll-reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            });
+            
+            reveals.forEach(el => observer.observe(el));
+        });
+    </script>
+</head>
+<body class="text-textColor antialiased min-h-screen bg-black flex flex-col items-center">
+
+    <!-- FULL WIDTH CONTAINER FOR LAPTOPS -->
+    <div class="w-full bg-darkBg min-h-screen flex flex-col">
+        
+        <!-- HEADER WITH MOBILE OPTIMIZATION & HAMBURGER -->
+        <header class="w-full p-6 border-b border-accentGray bg-black sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto flex items-center justify-between">
+                <div class="text-left">
+                    <a href="index.html" class="brand-script text-4xl text-gold tracking-wide select-none block">Fabulaze Hair & Beauty</a>
+                </div>
+
+                <!-- Hamburger Trigger for Mobile/Tablet -->
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-gold focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+
+                <!-- Desktop Navigation Menu -->
+                <nav class="hidden lg:flex items-center gap-8 text-xs font-semibold tracking-wider uppercase">
+                    <a href="index.html" class="hover:text-gold transition-colors">Home</a>
+                    <a href="Fabulaze-Beauty.html" class="hover:text-gold transition-colors">About Us</a>
+                    <a href="#" class="text-gold transition-colors">BeautyStudio by Danica</a>
+                    
+                    <div class="relative group">
+                        <button class="hover:text-gold transition-colors flex items-center gap-1 uppercase font-semibold focus:outline-none">
+                            Fabulaze Studio <span class="text-[10px]">▼</span>
+                        </button>
+                        <div class="absolute left-0 mt-2 py-2 w-48 bg-cardBg border border-gold rounded shadow-xl hidden group-hover:block">
+                            <a href="#" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Nail Studio</a>
+                            <a href="#" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Beautician Nunu</a>
+                            <a href="#" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Fabulaze by Anika</a>
+                        </div>
+                    </div>
+
+                    <div class="relative group">
+                        <button class="hover:text-gold transition-colors flex items-center gap-1 uppercase font-semibold focus:outline-none">
+                            Fabulaze Hair <span class="text-[10px]">▼</span>
+                        </button>
+                        <div class="absolute left-0 mt-2 py-2 w-48 bg-cardBg border border-gold rounded shadow-xl hidden group-hover:block">
+                            <a href="#" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Hair by Elsja</a>
+                            <a href="#" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Hair by Monique</a>
+                            <a href="#" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Hair by Dominique</a>
+                        </div>
+                    </div>
+
+                    <a href="#" class="hover:text-gold transition-colors">Our Work</a>
+                    <a href="#" class="hover:text-gold transition-colors">Contact Us</a>
+                </nav>
+            </div>
+
+            <!-- Mobile Dropdown Menu Drawer -->
+            <div id="mobileMenu" class="hidden lg:hidden mt-4 pt-4 border-t border-accentGray space-y-3 font-semibold uppercase tracking-wider text-sm text-center">
+                <a href="index.html" class="block hover:text-gold py-1">Home</a>
+                <a href="Fabulaze-Beauty.html" class="block hover:text-gold py-1">About Us</a>
+                <a href="#" class="block text-gold py-1">BeautyStudio by Danica</a>
+                
+                <div>
+                    <button onclick="toggleDropdown('mobDrop1')" class="w-full text-center hover:text-gold py-1 flex justify-center items-center gap-1">
+                        <span>Fabulaze Studio</span> <span class="text-[10px]">▼</span>
+                    </button>
+                    <div id="mobDrop1" class="hidden bg-cardBg border border-gold mt-1 space-y-2 py-2 rounded">
+                        <a href="#" class="block text-xs text-gold py-1">Nail Studio</a>
+                        <a href="#" class="block text-xs text-gold py-1">Beautician Nunu</a>
+                        <a href="#" class="block text-xs text-gold py-1">Fabulaze by Anika</a>
+                    </div>
+                </div>
+
+                <div>
+                    <button onclick="toggleDropdown('mobDrop2')" class="w-full text-center hover:text-gold py-1 flex justify-center items-center gap-1">
+                        <span>Fabulaze Hair</span> <span class="text-[10px]">▼</span>
+                    </button>
+                    <div id="mobDrop2" class="hidden bg-cardBg border border-gold mt-1 space-y-2 py-2 rounded">
+                        <a href="#" class="block text-xs text-gold py-1">Hair by Elsja</a>
+                        <a href="#" class="block text-xs text-gold py-1">Hair by Monique</a>
+                        <a href="#" class="block text-xs text-gold py-1">Hair by Dominique</a>
+                    </div>
+                </div>
+
+                <a href="#" class="block hover:text-gold py-1">Our Work</a>
+                <a href="#" class="block hover:text-gold py-1">Contact Us</a>
+            </div>
+        </header>
+
+        <!-- MAIN LAYOUT HUB -->
+        <main class="flex-grow">
+
+            <!-- HERO SECTION -->
+            <section class="relative w-full min-h-[350px] lg:h-[450px] border-b border-accentGray flex items-center justify-center overflow-hidden">
+                <div class="absolute inset-0">
+                    <img src="Danica.png" alt="BeautyStudio by Danica" class="w-full h-full object-cover object-top brightness-50">
+                </div>
+                
+                <!-- High-Readability Text Container (Get That Look Style) -->
+                <div class="relative z-10 text-center space-y-3 px-8 py-6 max-w-2xl mx-4 bg-black bg-opacity-75 border border-accentGray rounded-2xl shadow-2xl backdrop-blur-sm">
+                    <h2 class="brand-script text-5xl lg:text-7xl text-gold tracking-wider">BeautyStudio by Danica</h2>
+                    <div class="w-24 h-[1px] bg-gold mx-auto my-2"></div>
+                    <p class="text-white text-xs lg:text-sm font-semibold tracking-widest uppercase italic">
+                        Certified Beauty Specialist
+                    </p>
+                </div>
+            </section>
+
+            <!-- STRUCTURAL CONTENT WRAPPER -->
+            <div class="w-full space-y-20 py-16">
+
+                <!-- INTRO & SERVICES ACCORDION SECTION -->
+                <section class="w-full px-6 scroll-reveal">
+                    <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
+                        
+                        <!-- Left Side: Custom Intro Copy -->
+                        <div class="w-full lg:w-5/12 space-y-6 lg:sticky lg:top-28">
+                            <div class="space-y-4 text-center lg:text-left">
+                                <h3 class="text-white text-xs font-semibold tracking-widest uppercase text-gold">Wake up Flawless</h3>
+                                <h2 class="text-3xl lg:text-4xl text-white font-bold uppercase tracking-wide">Enhance Your Natural Beauty</h2>
+                                
+                                <div class="space-y-4 text-zinc-300 text-sm leading-relaxed text-justify pt-2">
+                                    <p>
+                                        Want to wake up flawless every day? Book Danica – your certified beauty specialist offering advanced aesthetic and cosmetic treatments to enhance your natural beauty and boost your confidence. With precision, professionalism, and passion, Danica helps you achieve long-lasting results using the latest beauty technologies.
+                                    </p>
+                                    <p>
+                                        Experience premium permanent makeup, lash extensions, brow shaping, laser hair removal, lipo laser body contouring, and advanced facial treatments that deliver noticeable, long-lasting results. Danica's expert techniques ensure a comfortable, safe, and rejuvenating experience every time.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto lg:mx-0 pt-4">
+                                <button class="bg-gold text-black px-8 py-3 rounded font-bold text-xs uppercase tracking-wider transition-transform hover:scale-105 active:scale-95 flex-1">
+                                    Book Danica
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Right Side: Rich SEO Accordion Stack Interface -->
+                        <div class="w-full lg:w-7/12 space-y-4">
+                            
+                            <!-- Accordion 1: Permanent Makeup -->
+                            <div class="border border-accentGray bg-cardBg rounded-xl overflow-hidden transition-colors duration-300 hover:border-gold">
+                                <button onclick="toggleServiceAccordion('bsAcc1')" class="w-full p-5 flex items-center justify-between text-left focus:outline-none select-none">
+                                    <span class="text-white font-bold text-sm uppercase tracking-wider">Permanent Makeup</span>
+                                    <span id="bsAcc1-icon" class="text-gold text-xs transition-transform duration-300">▼</span>
+                                </button>
+                                <div id="bsAcc1" class="hidden border-t border-accentGray bg-black bg-opacity-40 p-5 text-xs lg:text-sm text-zinc-300 space-y-3 leading-relaxed">
+                                    <p>
+                                        Enhance your natural beauty with expertly applied permanent makeup, including brows, eyeliner, and lips, providing flawless results that last. Our advanced cosmetic tattooing targets long-lasting definition that eliminates daily cosmetic applications.
+                                    </p>
+                                    <p>
+                                        By balancing premium hypoallergenic pigments with personalized structural facial mapping, we provide seamless color matching and perfectly proportioned features designed specifically to look magnificent from morning to night.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Accordion 2: Lash Extensions & Brows -->
+                            <div class="border border-accentGray bg-cardBg rounded-xl overflow-hidden transition-colors duration-300 hover:border-gold">
+                                <button onclick="toggleServiceAccordion('bsAcc2')" class="w-full p-5 flex items-center justify-between text-left focus:outline-none select-none">
+                                    <span class="text-white font-bold text-sm uppercase tracking-wider">Lash Extensions & Brows</span>
+                                    <span id="bsAcc2-icon" class="text-gold text-xs transition-transform duration-300">▼</span>
+                                </button>
+                                <div id="bsAcc2" class="hidden border-t border-accentGray bg-black bg-opacity-40 p-5 text-xs lg:text-sm text-zinc-300 space-y-3 leading-relaxed">
+                                    <p>
+                                        Frame your eyes beautifully with high-performance lash and brow transformations. We offer meticulous individual lash extension isolation techniques alongside deep tinting variations and precision brow sculpting options.
+                                    </p>
+                                    <p>
+                                        Whether seeking a natural lifting appearance or striking red-carpet volume, our styling solutions deliver lightweight comfort and balanced lines that refresh your profile and highlight your look.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Accordion 3: Laser Hair Removal -->
+                            <div class="border border-accentGray bg-cardBg rounded-xl overflow-hidden transition-colors duration-300 hover:border-gold">
+                                <button onclick="toggleServiceAccordion('bsAcc3')" class="w-full p-5 flex items-center justify-between text-left focus:outline-none select-none">
+                                    <span class="text-white font-bold text-sm uppercase tracking-wider">Laser Hair Removal</span>
+                                    <span id="bsAcc3-icon" class="text-gold text-xs transition-transform duration-300">▼</span>
+                                </button>
+                                <div id="bsAcc3" class="hidden border-t border-accentGray bg-black bg-opacity-40 p-5 text-xs lg:text-sm text-zinc-300 space-y-3 leading-relaxed">
+                                    <p>
+                                        Achieve beautifully smooth skin with modern permanent hair reduction techniques. Our laser hair removal procedures systematically treat underlying growth zones across targeted facial and body treatment profiles.
+                                    </p>
+                                    <p>
+                                        Ditch traditional regular shaving and wax routines for specialized treatments engineered around patient comfort, efficiency, and fantastic multi-season skin-smoothing outcomes.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Accordion 4: Lipo Laser Body Contouring -->
+                            <div class="border border-accentGray bg-cardBg rounded-xl overflow-hidden transition-colors duration-300 hover:border-gold">
+                                <button onclick="toggleServiceAccordion('bsAcc4')" class="w-full p-5 flex items-center justify-between text-left focus:outline-none select-none">
+                                    <span class="text-white font-bold text-sm uppercase tracking-wider">Lipo Laser Body Contouring</span>
+                                    <span id="bsAcc4-icon" class="text-gold text-xs transition-transform duration-300">▼</span>
+                                </button>
+                                <div id="bsAcc4" class="hidden border-t border-accentGray bg-black bg-opacity-40 p-5 text-xs lg:text-sm text-zinc-300 space-y-3 leading-relaxed">
+                                    <p>
+                                        Sculpt your structural profile utilizing non-invasive laser lipolysis systems. These focused body contouring technologies apply targeted thermal energy ranges to safely activate and decrease stubborn fat deposits.
+                                    </p>
+                                    <p>
+                                        Accelerate your aesthetic goals with painless local treatments tailored to trim centimeters smoothly across specific targeted profile regions without any post-procedural recovery lag time.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Accordion 5: Advanced Facial Treatments -->
+                            <div class="border border-accentGray bg-cardBg rounded-xl overflow-hidden transition-colors duration-300 hover:border-gold">
+                                <button onclick="toggleServiceAccordion('bsAcc5')" class="w-full p-5 flex items-center justify-between text-left focus:outline-none select-none">
+                                    <span class="text-white font-bold text-sm uppercase tracking-wider">Advanced Facial Treatments</span>
+                                    <span id="bsAcc5-icon" class="text-gold text-xs transition-transform duration-300">▼</span>
+                                </button>
+                                <div id="bsAcc5" class="hidden border-t border-accentGray bg-black bg-opacity-40 p-5 text-xs lg:text-sm text-zinc-300 space-y-3 leading-relaxed">
+                                    <p>
+                                        Rejuvenate compromised dermal architecture with our targeted corrective facial treatments. Every customized path combines medical-grade active formulations with deep-acting peeling and microneedling methods.
+                                    </p>
+                                    <p>
+                                        Effectively address skin conditions ranging from aging pathways and sun spots to stubborn acne markings, reviving foundational radiance and producing healthy, beautiful skin.
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PMU GALLERY SHOWCASE SLIDER -->
+                <section class="w-full px-6 scroll-reveal pb-8">
+                    <div class="max-w-7xl mx-auto space-y-4">
+                        <h3 class="text-white font-bold text-base uppercase tracking-wider pl-1 text-center lg:text-left">Treatment Showcase Gallery</h3>
+                        <div class="relative w-full aspect-[4/3] md:aspect-[16/9] lg:aspect-[21/9] bg-zinc-900 border border-accentGray rounded-xl overflow-hidden group">
+                            
+                            <!-- Slider Track wrapper with full image visibility rules -->
+                            <div id="pmuTrack" class="w-full h-full flex transition-transform duration-700 ease-in-out will-change-transform">
+                                <div class="w-full h-full flex-shrink-0"><img src="pmu1.jfif" alt="Treatment Detail 1" class="w-full h-full object-contain mx-auto bg-black"></div>
+                                <div class="w-full h-full flex-shrink-0"><img src="pmu2.jfif" alt="Treatment Detail 2" class="w-full h-full object-contain mx-auto bg-black"></div>
+                                <div class="w-full h-full flex-shrink-0"><img src="pmu3.jfif" alt="Treatment Detail 3" class="w-full h-full object-contain mx-auto bg-black"></div>
+                                <div class="w-full h-full flex-shrink-0"><img src="pmu4.jfif" alt="Treatment Detail 4" class="w-full h-full object-contain mx-auto bg-black"></div>
+                                <div class="w-full h-full flex-shrink-0"><img src="pmu5.jfif" alt="Treatment Detail 5" class="w-full h-full object-contain mx-auto bg-black"></div>
+                                <div class="w-full h-full flex-shrink-0"><img src="pmu6.jfif" alt="Treatment Detail 6" class="w-full h-full object-contain mx-auto bg-black"></div>
+                            </div>
+                            
+                            <!-- Slider Control Buttons -->
+                            <button onclick="prevPmuSlide(); resetPmuInterval();" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black bg-opacity-70 border border-gold text-gold flex items-center justify-center font-bold shadow transition-all hover:bg-gold hover:text-black hover:scale-105 z-20">
+                                &#10094;
+                            </button>
+                            <button onclick="nextPmuSlide(); resetPmuInterval();" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black bg-opacity-70 border border-gold text-gold flex items-center justify-center font-bold shadow transition-all hover:bg-gold hover:text-black hover:scale-105 z-20">
+                                &#10095;
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+        </main>
+
+        <!-- FULL-WIDTH FOOTER BLOCK -->
+        <footer class="w-full p-8 bg-black border-t border-accentGray text-center space-y-2">
+            <div class="max-w-7xl mx-auto">
+                <h3 class="brand-script text-4xl text-gold">Fabulaze Hair & Beauty</h3>
+                <p class="text-xs text-gold font-bold tracking-widest uppercase italic">We Make Beauty Affordable</p>
+                <p class="text-[10px] text-zinc-600 pt-6">&copy; 2026 Fabulaze Hair & Beauty. All rights reserved.</p>
+            </div>
+        </footer>
+
+    </div>
+
+</body>
+</html>
