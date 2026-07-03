@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nail Studio - Fabulaze Hair & Beauty</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        .brand-script {
+            font-family: 'Alex Brush', cursive;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #000000;
+            overflow-x: hidden;
+        }
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform;
+        }
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#E2B94F',
+                        darkBg: '#000000',
+                        cardBg: '#121212',
+                        accentGray: '#333333',
+                        textColor: '#F3F3F3'
+                    }
+                }
+            }
+        }
+        
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        function toggleServiceAccordion(id) {
+            const target = document.getElementById(id);
+            const icon = document.getElementById(id + '-icon');
+            
+            if (target.classList.contains('hidden')) {
+                target.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                target.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Slider Engine
+        let currentSlide = 0;
+        const totalSlides = 6;
+
+        function showSlide(index) {
+            const track = document.getElementById('nailTrack');
+            if (!track) return;
+            
+            if (index >= totalSlides) currentSlide = 0;
+            else if (index < 0) currentSlide = totalSlides - 1;
+            else currentSlide = index;
+
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        function nextSlide() { showSlide(currentSlide + 1); }
+        function prevSlide() { showSlide(currentSlide - 1); }
+
+        let slideInterval = setInterval(nextSlide, 5000);
+        function resetSlideInterval() {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(nextSlide, 5000);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const reveals = document.querySelectorAll('.scroll-reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            });
+            
+            reveals.forEach(el => observer.observe(el));
+        });
+    </script>
+</head>
+<body class="text-textColor antialiased min-h-screen bg-black flex flex-col items-center">
+
+    <div class="w-full bg-darkBg min-h-screen flex flex-col">
+        
+        <!-- HEADER -->
+        <header class="w-full p-6 border-b border-accentGray bg-black sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto flex items-center justify-between">
+                <div class="text-left">
+                    <a href="index.html" class="brand-script text-4xl text-gold tracking-wide select-none block">Fabulaze Hair & Beauty</a>
+                </div>
+
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-gold focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+
+                <nav class="hidden lg:flex items-center gap-8 text-xs font-semibold tracking-wider uppercase">
+                    <a href="index.html" class="hover:text-gold transition-colors">Home</a>
+                    <a href="#" class="hover:text-gold transition-colors">About Us</a>
+                    <a href="#" class="text-gold transition-colors">Nail Studio</a>
+                    <a href="#" class="hover:text-gold transition-colors">Contact Us</a>
+                </nav>
+            </div>
+
+            <div id="mobileMenu" class="hidden lg:hidden mt-4 pt-4 border-t border-accentGray space-y-3 font-semibold uppercase tracking-wider text-sm text-center">
+                <a href="index.html" class="block hover:text-gold py-1">Home</a>
+                <a href="#" class="block hover:text-gold py-1">About Us</a>
+                <a href="#" class="block text-gold py-1">Nail Studio</a>
+                <a href="#" class="block hover:text-gold py-1">Contact Us</a>
+            </div>
+        </header>
+
+        <!-- MAIN CONTENT -->
+        <main class="flex-grow">
+
+            <!-- HERO SECTION -->
+            <section class="relative w-full min-h-[300px] lg:h-[400px] border-b border-accentGray flex items-center justify-center overflow-hidden">
+                <div class="absolute inset-0">
+                    <img src="nails.png" alt="Nail Studio Hero" class="w-full h-full object-cover brightness-50">
+                </div>
+                <div class="relative z-10 text-center space-y-3 px-6">
+                    <h2 class="text-gold font-bold text-4xl lg:text-5xl uppercase tracking-wider">Nail Studio</h2>
+                    <p class="text-white text-xs lg:text-sm font-semibold tracking-widest uppercase italic bg-black bg-opacity-40 px-4 py-1.5 inline-block rounded-md">
+                        Flawless Luxury Top & Toe Treatments
+                    </p>
+                </div>
+            </section>
+
+            <div class="w-full space-y-24 py-16">
+
+                <!-- INTRODUCTION SECTION -->
+                <section class="w-full px-6 scroll-reveal">
+                    <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+                        
+                        <div class="w-full lg:w-7/12 flex flex-col justify-center space-y-6 order-2 lg:order-1">
+                            <div class="text-center lg:text-left space-y-5">
+                                <h2 class="text-3xl lg:text-4xl text-gold font-bold uppercase tracking-wide">Premium Hand & Foot Care</h2>
+                                <div class="space-y-4 text-zinc-300 text-sm lg:text-base leading-relaxed text-justify">
+                                    <p>
+                                        Step into our open, welcoming space and treat your hands and feet to premium styling that balances beautiful design with premium workmanship. From structural protection coatings to sleek gel finishes, we deliver clean geometric symmetry and immaculate cuticle work tailored exactly to your preference.
+                                    </p>
+                                    <p class="border-l-2 border-gold pl-4 italic text-zinc-100">
+                                        Our studio structure prioritizes high-quality, color-stable builders and pigment products, ensuring that your sets remain resilient, elegant, and chip-free.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto lg:mx-0 pt-4">
+                                <a href="https://www.appointfix.com/Cute-Ickes-fabulaze" target="_blank" class="bg-gold text-black px-8 py-3 rounded font-bold text-xs uppercase tracking-wider transition-transform hover:scale-105 active:scale-95 flex-1 text-center">
+                                    Book Online Now
+                                </a>
+                                <a href="https://wa.me/27724105517" target="_blank" class="border border-gold text-gold px-8 py-3 rounded font-bold text-xs uppercase tracking-wider transition-transform hover:scale-105 active:scale-95 hover:bg-gold hover:text-black flex-1 text-center">
+                                    WhatsApp Studio
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="w-full lg:w-5/12 max-w-md lg:max-w-none bg-zinc-900 border border-accentGray rounded-3xl overflow-hidden shadow-2xl flex-shrink-0 order-1 lg:order-2">
+                            <img src="nails2.jfif" alt="Nail Styling Detail" class="w-full h-auto object-cover block">
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- SERVICE ACCORDION SECTION -->
+                <section class="w-full px-6 scroll-reveal">
+                    <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
+                        
+                        <div class="w-full lg:w-5/12 space-y-6 lg:sticky lg:top-28">
+                            <div class="space-y-3 text-center lg:text-left">
+                                <h3 class="text-white text-xs font-semibold tracking-widest uppercase text-gold">Bespoke Options</h3>
+                                <h2 class="brand-script text-5xl text-gold">Studio Services</h2>
+                                <p class="text-sm text-zinc-300 leading-relaxed text-justify">
+                                    Explore our range of comprehensive beauty solutions designed to elevate your everyday confidence. From detailed manicure applications to advanced body contouring protocols, we guarantee precision-focused care.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="w-full lg:w-7/12 space-y-4">
+                            
+                            <!-- Accordion Item 1 -->
+                            <div class="border border-accentGray bg-cardBg rounded-xl overflow-hidden transition-colors duration-300 hover:border-gold">
+                                <button onclick="toggleServiceAccordion('nailAcc1')" class="w-full p-5 flex items-center justify-between text-left focus:outline-none select-none">
+                                    <span class="text-white font-bold text-sm uppercase tracking-wider">Top & Toe Nails (Manicures & Pedicures)</span>
+                                    <span id="nailAcc1-icon" class="text-gold text-xs transition-transform duration-300">▼</span>
+                                </button>
+                                <div id="nailAcc1" class="hidden border-t border-accentGray bg-black bg-opacity-40 p-5 text-xs lg:text-sm text-zinc-300 space-y-3 leading-relaxed">
+                                    <p>
+                                        Treat your hands and feet to pristine care with our comprehensive nail styling options. We offer clean, uniform extensions, durable overlays, luxury manicures, and refreshing pedicures that revitalize skin and nail health.
+                                    </p>
+                                    <a href="https://www.appointfix.com/Cute-Ickes-fabulaze" target="_blank" class="inline-block text-gold font-semibold underline pt-2">Book Nail Treatment &rarr;</a>
+                                </div>
+                            </div>
+
+                            <!-- Accordion Item 2 -->
+                            <div class="border border-accentGray bg-cardBg rounded-xl overflow-hidden transition-colors duration-300 hover:border-gold">
+                                <button onclick="toggleServiceAccordion('nailAcc2')" class="w-full p-5 flex items-center justify-between text-left focus:outline-none select-none">
+                                    <span class="text-white font-bold text-sm uppercase tracking-wider">Professional Waxing Services</span>
+                                    <span id="nailAcc2-icon" class="text-gold text-xs transition-transform duration-300">▼</span>
+                                </button>
+                                <div id="nailAcc2" class="hidden border-t border-accentGray bg-black bg-opacity-40 p-5 text-xs lg:text-sm text-zinc-300 space-y-3 leading-relaxed">
+                                    <p>
+                                        Achieve ultra-smooth, long-lasting hair removal with our gentle and efficient waxing protocols. Suitable for all skin architectures, ensuring clean mapping and minimal discomfort.
+                                    </p>
+                                    <a href="https://www.appointfix.com/Cute-Ickes-fabulaze" target="_blank" class="inline-block text-gold font-semibold underline pt-2">Book Waxing &rarr;</a>
+                                </div>
+                            </div>
+
+                            <!-- Accordion Item 3 -->
+                            <div class="border border-accentGray bg-cardBg rounded-xl overflow-hidden transition-colors duration-300 hover:border-gold">
+                                <button onclick="toggleServiceAccordion('nailAcc3')" class="w-full p-5 flex items-center justify-between text-left focus:outline-none select-none">
+                                    <span class="text-white font-bold text-sm uppercase tracking-wider">Lipolytic Fat Loss Injections</span>
+                                    <span id="nailAcc3-icon" class="text-gold text-xs transition-transform duration-300">▼</span>
+                                </button>
+                                <div id="nailAcc3" class="hidden border-t border-accentGray bg-black bg-opacity-40 p-5 text-xs lg:text-sm text-zinc-300 space-y-3 leading-relaxed">
+                                    <p>
+                                        Target and break down stubborn localized adipose tissue deposits with advanced lipolytic body contouring. Perfect for mapping structural goals safely within a controlled clinical protocol.
+                                    </p>
+                                    <a href="https://www.appointfix.com/Cute-Ickes-fabulaze" target="_blank" class="inline-block text-gold font-semibold underline pt-2">Book Lipolytic Treatment &rarr;</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <!-- GALLERY SHOWCASE SLIDER -->
+                <section class="w-full px-6 scroll-reveal">
+                    <div class="max-w-7xl mx-auto space-y-4">
+                        <h3 class="text-white font-bold text-base uppercase tracking-wider pl-1 text-center lg:text-left">Studio Lookbook</h3>
+                        <div class="relative w-full aspect-[4/3] md:aspect-[16/9] lg:aspect-[21/9] bg-zinc-900 border border-accentGray rounded-xl overflow-hidden group">
+                            
+                            <div id="nailTrack" class="w-full h-full flex transition-transform duration-700 ease-in-out will-change-transform">
+                                <div class="w-full h-full flex-shrink-0"><img src="nails1.jfif" alt="Nail Look 1" class="w-full h-full object-contain mx-auto bg-black"></div>
+                                <div class="w-full h-full flex-shrink-0"><img src="nails3.jfif" alt="Nail Look 2" class="w-full h-full object-contain mx-auto bg-black"></div>
+                                <div class="w-full h-full flex-shrink-0"><img src="nails4.jfif" alt="Nail Look 3" class="w-full h-full object-contain mx-auto bg-black"></div>
+                                <div class="w-full h-full flex-shrink-0"><img src="nails5.jfif" alt="Nail Look 4" class="w-full h-full object-contain mx-auto bg-black"></div>
+                                <div class="w-full h-full flex-shrink-0"><img src="nails6.jfif" alt="Nail Look 5" class="w-full h-full object-contain mx-auto bg-black"></div>
+                                <div class="w-full h-full flex-shrink-0"><img src="nails2.jfif" alt="Nail Look 6" class="w-full h-full object-contain mx-auto bg-black"></div>
+                            </div>
+                            
+                            <button onclick="prevSlide(); resetSlideInterval();" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black bg-opacity-70 border border-gold text-gold flex items-center justify-center font-bold shadow transition-all hover:bg-gold hover:text-black hover:scale-105 z-20">
+                                &#10094;
+                            </button>
+                            <button onclick="nextSlide(); resetSlideInterval();" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black bg-opacity-70 border border-gold text-gold flex items-center justify-center font-bold shadow transition-all hover:bg-gold hover:text-black hover:scale-105 z-20">
+                                &#10095;
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="w-full p-8 bg-black border-t border-accentGray text-center space-y-4">
+            <div class="flex justify-center gap-6 text-gold text-xl font-semibold tracking-wider">
+                <a href="#" class="hover:underline flex items-center gap-2">
+                    <svg class="w-5 " fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+                    Facebook
+                </a> 
+                <a href="#" class="hover:underline flex items-center gap-2">
+                    <svg class="w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    Instagram
+                </a>
+            </div>
+            <p class="brand-script text-4xl text-gold">Fabulaze Hair & Beauty</p>
+            <p class="text-xs text-gold font-bold tracking-widest uppercase italic">We Make Beauty Affordable</p>
+            <p class="text-[10px] text-zinc-600 pt-2">&copy; 2026 Fabulaze Hair & Beauty. All rights reserved.</p>
+            <p class="text-[10px] text-zinc-500 uppercase tracking-widest pt-2">Proudly Built by Danielle Builds</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
