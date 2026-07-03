@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fabulaze Hair & Beauty</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        .brand-script {
+            font-family: 'Alex Brush', cursive;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #000000;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#E2B94F',
+                        darkBg: '#000000',
+                        cardBg: '#121212',
+                        accentGray: '#333333',
+                        textColor: '#F3F3F3'
+                    }
+                }
+            }
+        }
+        
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+        function toggleDropdown(id) {
+            const dropdown = document.getElementById(id);
+            dropdown.classList.toggle('hidden');
+        }
+    </script>
+</head>
+<body class="text-textColor antialiased min-h-screen bg-black flex flex-col items-center">
+
+    <!-- FULL WIDTH CONTAINER FOR LAPTOPS -->
+    <div class="w-full bg-darkBg min-h-screen flex flex-col">
+        
+        <!-- HEADER WITH MOBILE OPTIMIZATION & HAMBURGER -->
+        <header class="w-full p-6 border-b border-accentGray bg-black sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto flex items-center justify-between">
+                <div class="text-left">
+                    <h1 class="brand-script text-4xl text-gold tracking-wide select-none">Fabulaze Hair & Beauty</h1>
+                </div>
+
+                <!-- Hamburger Trigger for Mobile/Tablet -->
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-gold focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+
+                <!-- Desktop Navigation Menu -->
+                <nav class="hidden lg:flex items-center gap-8 text-xs font-semibold tracking-wider uppercase">
+                    <a href="#" class="text-gold transition-colors">Home</a>
+                    <a href="Fabulaze-Beauty.html" class="hover:text-gold transition-colors">About Us</a>
+                    <a href="beauty-studio.html" class="hover:text-gold transition-colors">BeautyStudio by Danica</a>
+                    
+                    <div class="relative group">
+                        <button class="hover:text-gold transition-colors flex items-center gap-1 uppercase font-semibold focus:outline-none">
+                            Fabulaze Studio <span class="text-[10px]">▼</span>
+                        </button>
+                        <div class="absolute left-0 mt-2 py-2 w-48 bg-cardBg border border-gold rounded shadow-xl hidden group-hover:block">
+                            <a href="#" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Nail Studio</a>
+                            <a href="#" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Beautician Nunu</a>
+                            <a href="#" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Fabulaze by Anika</a>
+                        </div>
+                    </div>
+
+                    <div class="relative group">
+                        <button class="hover:text-gold transition-colors flex items-center gap-1 uppercase font-semibold focus:outline-none">
+                            Fabulaze Hair <span class="text-[10px]">▼</span>
+                        </button>
+                        <div class="absolute left-0 mt-2 py-2 w-48 bg-cardBg border border-gold rounded shadow-xl hidden group-hover:block">
+                            <a href="#" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Hair by Elsja</a>
+                            <a href="#" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Hair by Monique</a>
+                            <a href="#" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Hair by Dominique</a>
+                        </div>
+                    </div>
+
+                    <a href="#" class="hover:text-gold transition-colors">Our Work</a>
+                    <a href="#" class="hover:text-gold transition-colors">Contact Us</a>
+                </nav>
+            </div>
+
+            <!-- Mobile Dropdown Menu Drawer -->
+            <div id="mobileMenu" class="hidden lg:hidden mt-4 pt-4 border-t border-accentGray space-y-3 font-semibold uppercase tracking-wider text-sm text-center">
+                <a href="#" class="block text-gold py-1">Home</a>
+                <a href="fabulaze-studio.html" class="block hover:text-gold py-1">About Us</a>
+                <a href="beauty-studio.html" class="block hover:text-gold py-1">BeautyStudio by Danica</a>
+                
+                <div>
+                    <button onclick="toggleDropdown('mobDrop1')" class="w-full text-center hover:text-gold py-1 flex justify-center items-center gap-1">
+                        <span>Fabulaze Studio</span> <span class="text-[10px]">▼</span>
+                    </button>
+                    <div id="mobDrop1" class="hidden bg-cardBg border border-gold mt-1 space-y-2 py-2 rounded">
+                        <a href="#" class="block text-xs text-gold py-1">Nail Studio</a>
+                        <a href="#" class="block text-xs text-gold py-1">Beautician Nunu</a>
+                        <a href="#" class="block text-xs text-gold py-1">Fabulaze by Anika</a>
+                    </div>
+                </div>
+
+                <div>
+                    <button onclick="toggleDropdown('mobDrop2')" class="w-full text-center hover:text-gold py-1 flex justify-center items-center gap-1">
+                        <span>Fabulaze Hair</span> <span class="text-[10px]">▼</span>
+                    </button>
+                    <div id="mobDrop2" class="hidden bg-cardBg border border-gold mt-1 space-y-2 py-2 rounded">
+                        <a href="#" class="block text-xs text-gold py-1">Hair by Elsja</a>
+                        <a href="#" class="block text-xs text-gold py-1">Hair by Monique</a>
+                        <a href="#" class="block text-xs text-gold py-1">Hair by Dominique</a>
+                    </div>
+                </div>
+
+                <a href="#" class="block hover:text-gold py-1">Our Work</a>
+                <a href="#" class="block hover:text-gold py-1">Contact Us</a>
+            </div>
+        </header>
+
+        <!-- MAIN LAYOUT HUB -->
+        <main class="flex-grow">
+
+            <!-- FULL-WIDTH HERO SECTION WITH LEFT-ALIGNED OVERLAY ON LAPTOPS -->
+            <section class="relative w-full min-h-[500px] lg:h-[600px] border-b border-accentGray flex items-center overflow-hidden">
+                <!-- Background Image Layer -->
+                <div class="absolute inset-0">
+                    <img src="Homepage.png" alt="Homepage Hero Background" class="w-full h-full object-cover">
+                </div>
+                
+                <!-- Overlay Card Container: covers left on desktop, centered/full width on mobile -->
+                <div class="relative z-10 w-full max-w-7xl mx-auto px-6 py-12 flex justify-start">
+                    <div class="w-full lg:w-5/12 bg-black bg-opacity-80 p-8 lg:p-10 rounded-2xl border border-accentGray text-center lg:text-left space-y-5">
+                        <h2 class="text-gold font-bold text-3xl lg:text-4xl uppercase tracking-wider">Get That Look</h2>
+                        <h3 class="text-white text-xs lg:text-sm font-semibold tracking-widest uppercase">We Make Beauty Affordable</h3>
+                        <p class="text-xs lg:text-sm leading-relaxed text-zinc-300 pt-1">
+                            Offering a wide range of treatments from Acrylic Nails, Waxing, Spray Tan to Semi Permanent Make up & many more. We also have a Botox day every month.
+                        </p>
+                        <div class="pt-2">
+                            <button class="bg-gold text-black px-10 py-3 rounded font-bold text-xs uppercase tracking-wider transition-transform hover:scale-105 active:scale-95">
+                                Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TWO COLUMN RESPONSIVE LAYOUT FOR MIDDLE BODY DETAILS -->
+            <div class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-12 gap-12">
+                
+                <!-- LEFT MAIN LAYOUT SECTION (Meet Danica Card Profile Layout) -->
+                <div class="lg:col-span-6 flex flex-col justify-center">
+                    <div class="w-full border-2 border-gold rounded-3xl p-6 bg-black flex flex-col items-center space-y-6">
+                        
+                        <!-- Profile Image asset: "FS Danica" -->
+                        <div class="w-full aspect-[4/5] max-w-md bg-zinc-900 border border-accentGray rounded-xl overflow-hidden">
+                            <img src="FS Danica.png" alt="FS Danica" class="w-full h-full object-cover">
+                        </div>
+
+                        <div class="text-center w-full px-2 space-y-4">
+                            <h2 class="brand-script text-5xl text-gold">Meet Danica</h2>
+                            <p class="text-xs lg:text-sm text-zinc-300 leading-relaxed text-justify">
+                                As the proud <strong class="text-white font-semibold">owner of Fabulaze Hair & Beauty</strong> and a certified beauty specialist, Danica brings expertise, passion, and precision to every treatment. From advanced facial and body treatments to lash extensions, permanent makeup, and laser hair removal, she ensures every client leaves feeling radiant, confident, and pampered in a professional, welcoming environment.
+                            </p>
+                        </div>
+
+                        <div class="w-full max-w-md space-y-3 pt-2">
+                            <button class="w-full py-3 bg-gold text-black font-bold uppercase text-xs tracking-wider rounded shadow hover:bg-yellow-600 transition-colors">
+                                Book Now
+                            </button>
+                            <button class="w-full py-3 border border-gold text-gold font-bold uppercase text-xs tracking-wider rounded shadow hover:bg-gold hover:text-black transition-colors">
+                                WhatsApp Booking
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT MAIN LAYOUT SECTION (Slider Gallery & Google Reviews Sync Hook) -->
+                <div class="lg:col-span-6 flex flex-col justify-between space-y-8">
+                    
+                    <!-- IMAGE SLIDER WRAPPER -->
+                    <div class="w-full space-y-3">
+                        <h3 class="text-white font-bold text-sm uppercase tracking-wider pl-1">Our Showcase Gallery</h3>
+                        <div class="relative w-full aspect-square max-h-[450px] bg-zinc-900 border border-accentGray rounded-xl overflow-hidden flex items-center justify-center">
+                            <span class="text-xs text-zinc-600 uppercase tracking-widest font-semibold">[ Image Slider Placeholder ]</span>
+                            
+                            <button class="absolute left-3 w-9 h-9 rounded bg-gold text-black flex items-center justify-center font-bold shadow hover:bg-yellow-600">&lt;</button>
+                            <button class="absolute right-3 w-9 h-9 rounded bg-gold text-black flex items-center justify-center font-bold shadow hover:bg-yellow-600">&gt;</button>
+                        </div>
+                    </div>
+
+                    <!-- REVIEWS ENGINE FEED PANEL -->
+                    <div class="w-full space-y-4">
+                        <div class="flex items-center justify-between border-b border-accentGray pb-2">
+                            <h3 class="text-gold font-bold text-sm uppercase tracking-wider">Customer Feedback</h3>
+                            <a href="https://share.google/Ixwl7cCuZTUlnTUYE" target="_blank" class="text-[10px] lg:text-xs text-blue-400 hover:underline">View All Google Reviews</a>
+                        </div>
+
+                        <!-- Review Item Block 1 -->
+                        <div class="bg-cardBg p-4 rounded-xl border border-accentGray text-xs space-y-2">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center text-[10px] font-bold text-white">KK</div>
+                                    <div>
+                                        <h4 class="font-bold text-white">Kaylinn Kindo</h4>
+                                        <span class="text-[9px] text-zinc-500 block">2025-07-02</span>
+                                    </div>
+                                </div>
+                                <span class="text-blue-500 font-bold text-sm">G</span>
+                            </div>
+                            <div class="text-gold text-[10px]">★★★★★ <span class="text-blue-400 bg-blue-950 px-1 rounded ml-1 text-[8px]">✔ Verified</span></div>
+                            <p class="text-zinc-400 leading-relaxed">
+                                The best hair doing experience I've had! Thank you so much Monique. Friendly, caring, observant and thorough effort. ...
+                            </p>
+                        </div>
+
+                        <!-- Review Item Block 2 -->
+                        <div class="bg-cardBg p-4 rounded-xl border border-accentGray text-xs space-y-2">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-8 h-8 rounded-full bg-orange-700 flex items-center justify-center text-[10px] font-bold text-white">JM</div>
+                                    <div>
+                                        <h4 class="font-bold text-white">jayshree moonasar</h4>
+                                        <span class="text-[9px] text-zinc-500 block">2025-06-18</span>
+                                    </div>
+                                </div>
+                                <span class="text-blue-500 font-bold text-sm">G</span>
+                            </div>
+                            <div class="text-gold text-[10px]">★★★★★ <span class="text-blue-400 bg-blue-950 px-1 rounded ml-1 text-[8px]">✔ Verified</span></div>
+                            <p class="text-zinc-400 leading-relaxed">
+                                Good day. Thank you Monique for seeing me this morning. Love my haircut. Will definitely be back. 🙏
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+
+        <!-- FULL-WIDTH FOOTER BLOCK -->
+        <footer class="w-full p-8 bg-black border-t border-accentGray text-center space-y-2">
+            <div class="max-w-7xl mx-auto">
+                <h3 class="brand-script text-4xl text-gold">Fabulaze Hair & Beauty</h3>
+                <p class="text-xs text-gold font-bold tracking-widest uppercase italic">We Make Beauty Affordable</p>
+                <p class="text-[10px] text-zinc-600 pt-6">&copy; 2025 Fabulaze Hair & Beauty. All rights reserved.</p>
+            </div>
+        </footer>
+
+    </div>
+
+</body>
+</html>
