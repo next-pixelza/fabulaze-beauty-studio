@@ -93,72 +93,94 @@
 
     <div class="w-full bg-darkBg min-h-screen flex flex-col">
         
+       // Optional: Close dropdowns if clicking anywhere outside the nav
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.relative') && !e.target.closest('button')) {
+                    ['desktopDrop1', 'desktopDrop2'].forEach(id => {
+                        const drop = document.getElementById(id);
+                        if (drop) drop.classList.add('hidden');
+                    });
+                }
+            });
+        });
+    </script>
+</head>
+<body class="text-textColor antialiased min-h-screen bg-black flex flex-col items-center">
+
+    <div class="w-full bg-darkBg min-h-screen flex flex-col">
+        
         <header class="w-full p-6 border-b border-accentGray bg-black sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto flex items-center justify-between">
-        <div class="text-left">
-            <h1 class="brand-script text-4xl text-gold tracking-wide select-none">Fabulaze Hair & Beauty</h1>
-        </div>
-
-        <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-gold focus:outline-none">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-        </button>
-
-        <nav class="hidden lg:flex items-center gap-8 text-xs font-semibold tracking-wider uppercase">
-            <a href="#" class="text-gold transition-colors">Home</a>
-            <a href="Fabulaze-Beauty.html" class="hover:text-gold transition-colors">About Us</a>
-            <a href="beauty-studio.html" class="hover:text-gold transition-colors">BeautyStudio by Danica</a>
-            
-            <div class="relative">
-                <button onclick="toggleDropdown('desktopDrop1')" class="hover:text-gold transition-colors flex items-center gap-1 uppercase font-semibold focus:outline-none">
-                    Fabulaze Studio <span class="text-[10px]">▼</span>
-                </button>
-                <div id="desktopDrop1" class="absolute left-0 mt-2 py-2 w-48 bg-cardBg border border-gold rounded shadow-xl hidden z-50">
-                    <a href="nail-studio.html" onclick="selectOption('desktopDrop1')" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Nail Studio</a>
+            <div class="max-w-7xl mx-auto flex items-center justify-between">
+                <div class="text-left">
+                    <h1 class="brand-script text-4xl text-gold tracking-wide select-none">Fabulaze Hair & Beauty</h1>
                 </div>
-            </div>
 
-            <div class="relative">
-                <button onclick="toggleDropdown('desktopDrop2')" class="hover:text-gold transition-colors flex items-center gap-1 uppercase font-semibold focus:outline-none">
-                    Fabulaze Hair <span class="text-[10px]">▼</span>
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-gold focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                 </button>
-                <div id="desktopDrop2" class="absolute left-0 mt-2 py-2 w-48 bg-cardBg border border-gold rounded shadow-xl hidden z-50">
-                    <a href="#" onclick="selectOption('desktopDrop2')" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Hair by Tosca</a>
-                    <a href="#" onclick="selectOption('desktopDrop2')" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Hair by Nushy</a>
-                    <a href="#" onclick="selectOption('desktopDrop2')" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Hair by Dominique</a>
+
+                <nav class="hidden lg:flex items-center gap-8 text-xs font-semibold tracking-wider uppercase">
+                    <a href="#" class="text-gold transition-colors">Home</a>
+                    <a href="Fabulaze-Beauty.html" class="hover:text-gold transition-colors">About Us</a>
+                    <a href="beauty-studio.html" class="hover:text-gold transition-colors">BeautyStudio by Danica</a>
+                    
+                    <!-- Fabulaze Studio Dropdown -->
+                    <div class="relative">
+                        <button onclick="toggleDropdown('desktopDrop1')" class="hover:text-gold transition-colors flex items-center gap-1 uppercase font-semibold focus:outline-none">
+                            Fabulaze Studio <span class="text-[10px]">▼</span>
+                        </button>
+                        <div id="desktopDrop1" class="absolute left-0 mt-2 py-2 w-48 bg-cardBg border border-gold rounded shadow-xl hidden z-50">
+                            <a href="nail-studio.html" onclick="selectOption('desktopDrop1')" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Nail Studio</a>
+                        </div>
+                    </div>
+
+                    <!-- Fabulaze Hair Dropdown -->
+                    <div class="relative">
+                        <button onclick="toggleDropdown('desktopDrop2')" class="hover:text-gold transition-colors flex items-center gap-1 uppercase font-semibold focus:outline-none">
+                            Fabulaze Hair <span class="text-[10px]">▼</span>
+                        </button>
+                        <div id="desktopDrop2" class="absolute left-0 mt-2 py-2 w-48 bg-cardBg border border-gold rounded shadow-xl hidden z-50">
+                            <a href="#" onclick="selectOption('desktopDrop2')" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Hair by Tosca</a>
+                            <a href="#" onclick="selectOption('desktopDrop2')" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Hair by Nushy</a>
+                            <a href="#" onclick="selectOption('desktopDrop2')" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Hair by Dominique</a>
+                        </div>
+                    </div>
+
+                    <a href="our-work.html" class="hover:text-gold transition-colors">Our Work</a>
+                    <a href="#" class="hover:text-gold transition-colors">Contact Us</a>
+                </nav>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden lg:hidden mt-4 pt-4 border-t border-accentGray space-y-3 font-semibold uppercase tracking-wider text-sm text-center">
+                <a href="#" class="block text-gold py-1">Home</a>
+                <a href="Fabulaze-Beauty.html" class="block hover:text-gold py-1">About Us</a>
+                <a href="beauty-studio.html" class="block hover:text-gold py-1">BeautyStudio by Danica</a>
+                
+                <div>
+                    <button onclick="toggleDropdown('mobDrop1')" class="w-full text-center hover:text-gold py-1 flex justify-center items-center gap-1">
+                        <span>Fabulaze Studio</span> <span class="text-[10px]">▼</span>
+                    </button>
+                    <div id="mobDrop1" class="hidden bg-cardBg border border-gold mt-1 space-y-2 py-2 rounded">
+                        <a href="nail-studio.html" class="block text-xs text-gold py-1">Nail Studio</a>
+                    </div>
                 </div>
-            </div>
 
-            <a href="#" class="hover:text-gold transition-colors">Our Work</a>
-            <a href="#" class="hover:text-gold transition-colors">Contact Us</a>
-        </nav>
-    </div>
+                <div>
+                    <button onclick="toggleDropdown('mobDrop2')" class="w-full text-center hover:text-gold py-1 flex justify-center items-center gap-1">
+                        <span>Fabulaze Hair</span> <span class="text-[10px]">▼</span>
+                    </button>
+                    <div id="mobDrop2" class="hidden bg-cardBg border border-gold mt-1 space-y-2 py-2 rounded">
+                        <a href="#" class="block text-xs text-gold py-1">Hair by Tosca</a>
+                        <a href="#" class="block text-xs text-gold py-1">Hair by Nushy</a>
+                        <a href="#" class="block text-xs text-gold py-1">Hair by Dominique</a>
+                    </div>
+                </div>
 
-    <div id="mobileMenu" class="hidden lg:hidden mt-4 pt-4 border-t border-accentGray space-y-3 font-semibold uppercase tracking-wider text-sm text-center">
-        <a href="#" class="block text-gold py-1">Home</a>
-        <a href="Fabulaze-Beauty.html" class="block hover:text-gold py-1">About Us</a>
-        <a href="beauty-studio.html" class="block hover:text-gold py-1">BeautyStudio by Danica</a>
-        <div>
-            <button onclick="toggleDropdown('mobDrop1')" class="w-full text-center hover:text-gold py-1 flex justify-center items-center gap-1">
-                <span>Fabulaze Studio</span> <span class="text-[10px]">▼</span>
-            </button>
-            <div id="mobDrop1" class="hidden bg-cardBg border border-gold mt-1 space-y-2 py-2 rounded">
-                <a href="nail-studio.html" class="block text-xs text-gold py-1">Nail Studio</a>
+                <a href="#" class="block hover:text-gold py-1">Our Work</a>
+                <a href="#" class="block hover:text-gold py-1">Contact Us</a>
             </div>
-        </div>
-        <div>
-            <button onclick="toggleDropdown('mobDrop2')" class="w-full text-center hover:text-gold py-1 flex justify-center items-center gap-1">
-                <span>Fabulaze Hair</span> <span class="text-[10px]">▼</span>
-            </button>
-            <div id="mobDrop2" class="hidden bg-cardBg border border-gold mt-1 space-y-2 py-2 rounded">
-                <a href="#" class="block text-xs text-gold py-1">Hair by Tosca</a>
-                <a href="#" class="block text-xs text-gold py-1">Hair by Nushy</a>
-                <a href="#" class="block text-xs text-gold py-1">Hair by Dominique</a>
-            </div>
-        </div>
-        <a href="#" class="block hover:text-gold py-1">Our Work</a>
-        <a href="#" class="block hover:text-gold py-1">Contact Us</a>
-    </div>
-</header>
+        </header>
 
         <main class="flex-grow">
             <section class="relative w-full min-h-[350px] lg:h-[450px] border-b border-accentGray flex items-center justify-center overflow-hidden">
@@ -192,16 +214,72 @@
 
                         <div class="w-full lg:w-7/12 space-y-4">
                             <!-- Accordions -->
-                            <div class="border border-accentGray bg-cardBg rounded-xl overflow-hidden transition-colors duration-300 hover:border-gold">
-                                <button onclick="toggleServiceAccordion('bsAcc1')" class="w-full p-5 flex items-center justify-between text-left focus:outline-none select-none">
-                                    <span class="text-white font-bold text-sm uppercase tracking-wider">Permanent Makeup</span>
-                                    <span id="bsAcc1-icon" class="text-gold text-xs transition-transform duration-300">▼</span>
-                                </button>
-                                <div id="bsAcc1" class="hidden border-t border-accentGray bg-black bg-opacity-40 p-5 text-xs lg:text-sm text-zinc-300">Enhance your natural beauty with expertly applied permanent makeup...</div>
-                            </div>
-                            <!-- ... (other accordions follow same structure) -->
-                        </div>
-                    </div>
+                            <div class="w-full lg:w-7/12 space-y-4">
+    <!-- 1: Permanent Makeup -->
+    <div class="border border-accentGray bg-cardBg rounded-xl overflow-hidden transition-colors duration-300 hover:border-gold">
+        <button onclick="toggleServiceAccordion('bsAcc1')" class="w-full p-5 flex items-center justify-between text-left focus:outline-none">
+            <span class="text-white font-bold text-sm uppercase tracking-wider">Permanent Makeup</span>
+            <span id="bsAcc1-icon" class="text-gold text-xs transition-transform duration-300">▼</span>
+        </button>
+        <div id="bsAcc1" class="hidden border-t border-accentGray bg-black bg-opacity-40 p-5 text-xs lg:text-sm text-zinc-300">Enhance your natural beauty with expertly applied permanent makeup...</div>
+    </div>
+    <!-- 2: Lash Extensions -->
+    <div class="border border-accentGray bg-cardBg rounded-xl overflow-hidden transition-colors duration-300 hover:border-gold">
+        <button onclick="toggleServiceAccordion('bsAcc2')" class="w-full p-5 flex items-center justify-between text-left focus:outline-none">
+            <span class="text-white font-bold text-sm uppercase tracking-wider">Lash Extensions</span>
+            <span id="bsAcc2-icon" class="text-gold text-xs transition-transform duration-300">▼</span>
+        </button>
+        <div id="bsAcc2" class="hidden border-t border-accentGray bg-black bg-opacity-40 p-5 text-xs lg:text-sm text-zinc-300">Custom lash extensions designed to define your eyes and simplify your morning routine.</div>
+    </div>
+    <!-- 3: Brows -->
+    <div class="border border-accentGray bg-cardBg rounded-xl overflow-hidden transition-colors duration-300 hover:border-gold">
+        <button onclick="toggleServiceAccordion('bsAcc3')" class="w-full p-5 flex items-center justify-between text-left focus:outline-none">
+            <span class="text-white font-bold text-sm uppercase tracking-wider">Brows</span>
+            <span id="bsAcc3-icon" class="text-gold text-xs transition-transform duration-300">▼</span>
+        </button>
+        <div id="bsAcc3" class="hidden border-t border-accentGray bg-black bg-opacity-40 p-5 text-xs lg:text-sm text-zinc-300">Expert brow shaping and styling to frame your face perfectly.</div>
+    </div>
+    <!-- 4: Laser Hair Removal -->
+    <div class="border border-accentGray bg-cardBg rounded-xl overflow-hidden transition-colors duration-300 hover:border-gold">
+        <button onclick="toggleServiceAccordion('bsAcc4')" class="w-full p-5 flex items-center justify-between text-left focus:outline-none">
+            <span class="text-white font-bold text-sm uppercase tracking-wider">Laser Hair Removal</span>
+            <span id="bsAcc4-icon" class="text-gold text-xs transition-transform duration-300">▼</span>
+        </button>
+        <div id="bsAcc4" class="hidden border-t border-accentGray bg-black bg-opacity-40 p-5 text-xs lg:text-sm text-zinc-300">Advanced laser technology for smooth, hair-free skin with long-lasting results.</div>
+    </div>
+    <!-- 5: Lipo Laser -->
+    <div class="border border-accentGray bg-cardBg rounded-xl overflow-hidden transition-colors duration-300 hover:border-gold">
+        <button onclick="toggleServiceAccordion('bsAcc5')" class="w-full p-5 flex items-center justify-between text-left focus:outline-none">
+            <span class="text-white font-bold text-sm uppercase tracking-wider">Lipo Laser</span>
+            <span id="bsAcc5-icon" class="text-gold text-xs transition-transform duration-300">▼</span>
+        </button>
+        <div id="bsAcc5" class="hidden border-t border-accentGray bg-black bg-opacity-40 p-5 text-xs lg:text-sm text-zinc-300">Non-invasive body contouring treatments to help you feel your best.</div>
+    </div>
+    <!-- 6: Carbon & Dermaplaning Facials -->
+    <div class="border border-accentGray bg-cardBg rounded-xl overflow-hidden transition-colors duration-300 hover:border-gold">
+        <button onclick="toggleServiceAccordion('bsAcc6')" class="w-full p-5 flex items-center justify-between text-left focus:outline-none">
+            <span class="text-white font-bold text-sm uppercase tracking-wider">Carbon & Dermaplaning Facials</span>
+            <span id="bsAcc6-icon" class="text-gold text-xs transition-transform duration-300">▼</span>
+        </button>
+        <div id="bsAcc6" class="hidden border-t border-accentGray bg-black bg-opacity-40 p-5 text-xs lg:text-sm text-zinc-300">Rejuvenating facial treatments designed to exfoliate and reveal radiant skin.</div>
+    </div>
+    <!-- 7: Microneedling -->
+    <div class="border border-accentGray bg-cardBg rounded-xl overflow-hidden transition-colors duration-300 hover:border-gold">
+        <button onclick="toggleServiceAccordion('bsAcc7')" class="w-full p-5 flex items-center justify-between text-left focus:outline-none">
+            <span class="text-white font-bold text-sm uppercase tracking-wider">Microneedling</span>
+            <span id="bsAcc7-icon" class="text-gold text-xs transition-transform duration-300">▼</span>
+        </button>
+        <div id="bsAcc7" class="hidden border-t border-accentGray bg-black bg-opacity-40 p-5 text-xs lg:text-sm text-zinc-300">Professional treatments to boost collagen and revitalize your skin texture.</div>
+    </div>
+    <!-- 8: Make Overs & Facial Botox -->
+    <div class="border border-accentGray bg-cardBg rounded-xl overflow-hidden transition-colors duration-300 hover:border-gold">
+        <button onclick="toggleServiceAccordion('bsAcc8')" class="w-full p-5 flex items-center justify-between text-left focus:outline-none">
+            <span class="text-white font-bold text-sm uppercase tracking-wider">Make Overs & Facial Botox</span>
+            <span id="bsAcc8-icon" class="text-gold text-xs transition-transform duration-300">▼</span>
+        </button>
+        <div id="bsAcc8" class="hidden border-t border-accentGray bg-black bg-opacity-40 p-5 text-xs lg:text-sm text-zinc-300">Expert makeovers and facial aesthetic treatments for a refreshed, youthful look.</div>
+    </div>
+</div>
                 </section>
             </div>
         </main>
