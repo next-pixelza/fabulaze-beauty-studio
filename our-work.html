@@ -21,10 +21,13 @@
         function toggleMobileMenu() { document.getElementById('mobileMenu').classList.toggle('hidden'); }
         function toggleDropdown(id) {
             ['desktopDrop1', 'desktopDrop2', 'mobDrop1', 'mobDrop2'].forEach(dropId => {
-                if (dropId !== id) document.getElementById(dropId)?.classList.add('hidden');
+                const target = document.getElementById(dropId);
+                if (dropId !== id && target) target.classList.add('hidden');
             });
             document.getElementById(id)?.classList.toggle('hidden');
         }
+        function selectOption(id) { document.getElementById(id)?.classList.add('hidden'); }
+        
         document.addEventListener("DOMContentLoaded", () => {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
@@ -37,11 +40,11 @@
 
     <div class="w-full bg-darkBg min-h-screen flex flex-col">
         
-        <!-- Header -->
+        <!-- Header (Exact Match) -->
         <header class="w-full p-6 border-b border-accentGray bg-black sticky top-0 z-50">
             <div class="max-w-7xl mx-auto flex items-center justify-between">
                 <div class="text-left">
-                    <h1 class="brand-script text-4xl text-gold tracking-wide select-none">Fabulaze Beauty Studio</h1>
+                    <h1 class="brand-script text-4xl text-gold tracking-wide select-none">Fabulaze Hair & Beauty</h1>
                 </div>
 
                 <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-gold focus:outline-none"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
@@ -49,55 +52,54 @@
                 <nav class="hidden lg:flex items-center gap-8 text-xs font-semibold tracking-wider uppercase">
                     <a href="index.html" class="hover:text-gold transition-colors">Home</a>
                     <a href="Fabulaze-Beauty.html" class="hover:text-gold transition-colors">About Us</a>
+                    <a href="beauty-studio.html" class="hover:text-gold transition-colors">BeautyStudio by Danica</a>
+                    <div class="relative"><button onclick="toggleDropdown('desktopDrop1')" class="hover:text-gold transition-colors flex items-center gap-1 uppercase font-semibold focus:outline-none">Fabulaze Studio <span class="text-[10px]">▼</span></button><div id="desktopDrop1" class="absolute left-0 mt-2 py-2 w-48 bg-cardBg border border-gold rounded shadow-xl hidden z-50"><a href="nail-studio.html" onclick="selectOption('desktopDrop1')" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Nail Studio</a></div></div>
+                    <div class="relative"><button onclick="toggleDropdown('desktopDrop2')" class="hover:text-gold transition-colors flex items-center gap-1 uppercase font-semibold focus:outline-none">Fabulaze Hair <span class="text-[10px]">▼</span></button><div id="desktopDrop2" class="absolute left-0 mt-2 py-2 w-48 bg-cardBg border border-gold rounded shadow-xl hidden z-50"><a href="#" onclick="selectOption('desktopDrop2')" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Hair by Tosca</a><a href="#" onclick="selectOption('desktopDrop2')" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Hair by Nushy</a><a href="#" onclick="selectOption('desktopDrop2')" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Hair by Dominique</a></div></div>
                     <a href="our-work.html" class="text-gold transition-colors">Our Work</a>
                     <a href="#" class="hover:text-gold transition-colors">Contact Us</a>
                 </nav>
             </div>
-            
+
+            <!-- Mobile Menu (Exact Match) -->
             <div id="mobileMenu" class="hidden lg:hidden mt-4 pt-4 border-t border-accentGray space-y-3 font-semibold uppercase tracking-wider text-sm text-center">
                 <a href="index.html" class="block py-1">Home</a>
                 <a href="Fabulaze-Beauty.html" class="block py-1">About Us</a>
+                <a href="beauty-studio.html" class="block py-1">BeautyStudio by Danica</a>
+                <button onclick="toggleDropdown('mobDrop1')" class="w-full text-center py-1">Fabulaze Studio ▼</button>
+                <div id="mobDrop1" class="hidden bg-cardBg border border-gold mt-1 space-y-2 py-2 rounded"><a href="nail-studio.html" class="block text-xs text-gold py-1">Nail Studio</a></div>
+                <button onclick="toggleDropdown('mobDrop2')" class="w-full text-center py-1">Fabulaze Hair ▼</button>
+                <div id="mobDrop2" class="hidden bg-cardBg border border-gold mt-1 space-y-2 py-2 rounded"><a href="#" class="block text-xs text-gold py-1">Hair by Tosca</a></div>
                 <a href="our-work.html" class="block text-gold py-1">Our Work</a>
                 <a href="#" class="block py-1">Contact Us</a>
             </div>
         </header>
 
-        <!-- Main Content -->
-        <main class="flex-grow max-w-7xl w-full px-6 py-16">
-            <section class="text-center space-y-4 mb-16 scroll-reveal">
-                <h2 class="brand-script text-6xl text-gold">Our Work</h2>
-                <p class="text-zinc-400 max-w-2xl mx-auto">Explore our portfolio of transformations, ranging from intricate nail artistry to professional hair styling and aesthetic treatments.</p>
-            </section>
-
-            <!-- Gallery Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 scroll-reveal">
-                <!-- Repeat this block for each image -->
-                <div class="aspect-square bg-cardBg border border-accentGray rounded-xl overflow-hidden hover:border-gold transition-all">
-                    <img src="slider1.jfif" alt="Gallery Work" class="w-full h-full object-cover">
-                </div>
-                <div class="aspect-square bg-cardBg border border-accentGray rounded-xl overflow-hidden hover:border-gold transition-all">
-                    <img src="slider2.jfif" alt="Gallery Work" class="w-full h-full object-cover">
-                </div>
-                <div class="aspect-square bg-cardBg border border-accentGray rounded-xl overflow-hidden hover:border-gold transition-all">
-                    <img src="slider3.jfif" alt="Gallery Work" class="w-full h-full object-cover">
-                </div>
-                <div class="aspect-square bg-cardBg border border-accentGray rounded-xl overflow-hidden hover:border-gold transition-all">
-                    <img src="slider4.jfif" alt="Gallery Work" class="w-full h-full object-cover">
-                </div>
-                <div class="aspect-square bg-cardBg border border-accentGray rounded-xl overflow-hidden hover:border-gold transition-all">
-                    <img src="slider5.jfif" alt="Gallery Work" class="w-full h-full object-cover">
-                </div>
-                <div class="aspect-square bg-cardBg border border-accentGray rounded-xl overflow-hidden hover:border-gold transition-all">
-                    <img src="slider6.jfif" alt="Gallery Work" class="w-full h-full object-cover">
+        <!-- Hero Section (Exact Match) -->
+        <section class="relative w-full min-h-[500px] lg:h-[600px] border-b border-accentGray flex items-center overflow-hidden">
+            <div class="absolute inset-0"><img src="HomePage.png" alt="Hero" class="w-full h-full object-cover"></div>
+            <div class="relative z-10 w-full max-w-7xl mx-auto px-6 py-12 flex justify-start">
+                <div class="w-full lg:w-5/12 bg-black bg-opacity-80 p-8 lg:p-10 rounded-2xl border border-accentGray text-center lg:text-left space-y-5">
+                    <h2 class="text-gold font-bold text-3xl lg:text-4xl uppercase tracking-wider">Our Showcase</h2>
+                    <p class="text-xs lg:text-sm leading-relaxed text-zinc-300">A gallery of our latest transformations and beauty services.</p>
                 </div>
             </div>
+        </section>
+
+        <!-- Gallery Placeholder -->
+        <main class="flex-grow w-full max-w-7xl mx-auto px-6 py-16">
+             <h2 class="text-gold text-3xl font-bold uppercase tracking-widest text-center mb-12">Gallery</h2>
+             <!-- Add your gallery content here -->
         </main>
 
-        <!-- Footer -->
+        <!-- Footer (Exact Match) -->
         <footer class="w-full p-8 bg-black border-t border-accentGray text-center space-y-4">
             <div class="max-w-7xl mx-auto flex flex-col items-center gap-2">
-                <h3 class="brand-script text-4xl text-gold">Fabulaze Beauty Studio</h3>
-                <p class="text-[10px] text-zinc-600 pt-4">&copy; 2026 Fabulaze Beauty Studio. All rights reserved.</p>
+                <h3 class="brand-script text-4xl text-gold">Fabulaze Hair & Beauty</h3>
+                <p class="text-xs text-gold font-bold tracking-widest uppercase italic">We Make Beauty Affordable</p>
+                <div class="flex items-center justify-center gap-6 pt-4 text-zinc-400">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+                </div>
+                <p class="text-[10px] text-zinc-600 pt-4">&copy; 2026 Fabulaze Hair & Beauty. All rights reserved.</p>
                 <p class="text-[10px] text-zinc-500">Proudly Built by <a href="#" class="text-gold font-semibold hover:underline">Danielle Builds</a></p>
             </div>
         </footer>
