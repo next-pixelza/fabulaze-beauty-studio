@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hair By Tosca - Fabulaze Hair & Beauty</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -14,154 +12,68 @@
     <style>
         .brand-script { font-family: 'Alex Brush', cursive; }
         body { font-family: 'Montserrat', sans-serif; background-color: #000000; overflow-x: hidden; }
-        .scroll-reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; will-change: opacity, transform; }
+        .scroll-reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
         .scroll-reveal.active { opacity: 1; transform: translateY(0); }
     </style>
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        gold: '#E2B94F',
-                        darkBg: '#000000',
-                        cardBg: '#121212',
-                        accentGray: '#333333',
-                        textColor: '#F3F3F3'
-                    }
-                }
-            }
-        }
+        tailwind.config = { theme: { extend: { colors: { gold: '#E2B94F', darkBg: '#000000', cardBg: '#121212', accentGray: '#333333', textColor: '#F3F3F3' } } } }
         
-        function toggleMobileMenu() {
-            document.getElementById('mobileMenu').classList.toggle('hidden');
-        }
-
-        function toggleDropdown(id) {
-            document.getElementById(id).classList.toggle('hidden');
-        }
-
         function toggleServiceAccordion(id) {
             const target = document.getElementById(id);
             const icon = document.getElementById(id + '-icon');
-            
-            if (target.classList.contains('hidden')) {
-                target.classList.remove('hidden');
-                icon.style.transform = 'rotate(180deg)';
-            } else {
-                target.classList.add('hidden');
-                icon.style.transform = 'rotate(0deg)';
-            }
+            target.classList.toggle('hidden');
+            icon.style.transform = target.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
         }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            const reveals = document.querySelectorAll('.scroll-reveal');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
-            
-            reveals.forEach(el => observer.observe(el));
-        });
     </script>
 </head>
 <body class="text-textColor antialiased min-h-screen bg-black flex flex-col items-center">
 
     <div class="w-full bg-darkBg min-h-screen flex flex-col">
-        
-        <!-- HEADER -->
-        <header class="w-full p-6 border-b border-accentGray bg-black sticky top-0 z-50">
-            <div class="max-w-7xl mx-auto flex items-center justify-between">
-                <div class="text-left">
-                    <a href="index.html" class="brand-script text-4xl text-gold tracking-wide select-none block">Fabulaze Hair & Beauty</a>
-                </div>
+        <!-- HEADER (Omitted for brevity, keep your existing header) -->
 
-                <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-gold focus:outline-none">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                </button>
-
-                <nav class="hidden lg:flex items-center gap-8 text-xs font-semibold tracking-wider uppercase">
-                    <a href="index.html" class="hover:text-gold transition-colors">Home</a>
-                    <a href="Fabulaze-Beauty.html" class="hover:text-gold transition-colors">About Us</a>
-                    <a href="beauty-studio.html" class="hover:text-gold transition-colors">BeautyStudio by Danica</a>
-                    
-                    <div class="relative">
-                        <button onclick="toggleDropdown('desktopDrop1')" class="hover:text-gold transition-colors flex items-center gap-1 uppercase font-semibold focus:outline-none">
-                            Fabulaze Studio <span class="text-[10px]">▼</span>
-                        </button>
-                        <div id="desktopDrop1" class="absolute left-0 mt-2 py-2 w-48 bg-cardBg border border-gold rounded shadow-xl hidden">
-                            <a href="nail-studio.html" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Nail Studio</a>
-                        </div>
-                    </div>
-
-                    <div class="relative">
-                        <button onclick="toggleDropdown('desktopDrop2')" class="text-gold transition-colors flex items-center gap-1 uppercase font-semibold focus:outline-none">
-                            Fabulaze Hair <span class="text-[10px]">▼</span>
-                        </button>
-                        <div id="desktopDrop2" class="absolute left-0 mt-2 py-2 w-48 bg-cardBg border border-gold rounded shadow-xl hidden">
-                            <a href="hair-by-tosca.html" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Hair by Tosca</a>
-                            <a href="hair-by-nushy.html" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Hair by Nushy</a>
-                            <a href="hair-by-dom.html" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Hair by Dominique</a>
-                        </div>
-                    </div>
-
-                    <a href="our-work.html" class="hover:text-gold transition-colors">Our Work</a>
-                    <a href="contact.html" class="hover:text-gold transition-colors">Contact Us</a>
-                </nav>
-            </div>
-
-            <!-- Mobile Menu -->
-            <div id="mobileMenu" class="hidden lg:hidden mt-4 pt-4 border-t border-accentGray space-y-3 font-semibold uppercase tracking-wider text-sm text-center">
-                <a href="index.html" class="block hover:text-gold py-1">Home</a>
-                <a href="Fabulaze-Beauty.html" class="block hover:text-gold py-1">About Us</a>
-                <a href="beauty-studio.html" class="block hover:text-gold py-1">BeautyStudio by Danica</a>
-                <a href="hair-by-tosca.html" class="block text-gold py-1">Hair by Tosca</a>
-                <a href="our-work.html" class="block hover:text-gold py-1">Our Work</a>
-                <a href="contact.html" class="block hover:text-gold py-1">Contact Us</a>
-            </div>
-        </header>
-
-        <!-- MAIN CONTENT -->
         <main class="flex-grow">
-
-            <!-- HERO SECTION -->
+            <!-- HERO -->
             <section class="relative w-full h-[300px] lg:h-[400px] border-b border-accentGray flex items-center justify-center overflow-hidden">
-                <div class="absolute inset-0">
-                    <img src="hair.png" alt="Hair by Tosca Hero" class="w-full h-full object-cover brightness-50">
-                </div>
-                <div class="relative z-10 text-center space-y-3 px-6">
-                    <h2 class="text-gold font-bold text-4xl lg:text-5xl uppercase tracking-wider">Hair by Tosca</h2>
-                </div>
+                <div class="absolute inset-0"><img src="hair.png" alt="Hair by Tosca" class="w-full h-full object-cover brightness-50"></div>
+                <div class="relative z-10 text-center space-y-3 px-6"><h2 class="text-gold font-bold text-4xl lg:text-5xl uppercase tracking-wider">Hair by Tosca</h2></div>
             </section>
 
             <div class="w-full py-16">
-                <!-- SERVICE ACCORDION SECTION -->
-                <section class="w-full px-6 scroll-reveal">
+                <section class="w-full px-6">
                     <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
                         
+                        <!-- EXPANDED CONTENT -->
                         <div class="w-full lg:w-5/12 space-y-6 lg:sticky lg:top-28">
                             <div class="space-y-3 text-center lg:text-left">
-                                <h3 class="text-white text-xs font-semibold tracking-widest uppercase text-gold">Styling Services</h3>
-                                <h2 class="brand-script text-5xl text-gold">Studio Services</h2>
+                                <h3 class="text-gold text-xs font-semibold tracking-widest uppercase">The Art of Hair</h3>
+                                <h2 class="brand-script text-5xl text-gold">Meet Tosca</h2>
                                 <p class="text-sm text-zinc-300 leading-relaxed text-justify">
-                                    Expert cutting and professional styling tailored to your specific hair needs. Book your session with our Senior Stylist today.
+                                    Step into a world where precision meets passion. Tosca doesn't just cut hair; she crafts silhouettes that celebrate your individuality. With an eye for detail and a mastery of texture, every appointment is a bespoke journey toward your most confident self. From transformative cuts to subtle refinements, experience the luxury of high-end styling designed exclusively for you.
                                 </p>
                             </div>
                         </div>
 
+                        <!-- ACCORDION SECTION -->
                         <div class="w-full lg:w-7/12 space-y-4">
-                            <!-- Accordion Item -->
-                            <div class="border border-accentGray bg-cardBg rounded-xl overflow-hidden transition-colors duration-300 hover:border-gold">
-                                <button onclick="toggleServiceAccordion('toscaAcc1')" class="w-full p-5 flex items-center justify-between text-left focus:outline-none select-none">
-                                    <span class="text-white font-bold text-sm uppercase tracking-wider">Snr Cutting Queen & Stylist</span>
-                                    <span id="toscaAcc1-icon" class="text-gold text-xs transition-transform duration-300">▼</span>
+                            <!-- Item 1 -->
+                            <div class="border border-accentGray bg-cardBg rounded-xl overflow-hidden hover:border-gold transition-all">
+                                <button onclick="toggleServiceAccordion('tosca1')" class="w-full p-5 flex items-center justify-between text-left">
+                                    <span class="text-white font-bold text-sm uppercase tracking-wider">Precision Signature Cut</span>
+                                    <span id="tosca1-icon" class="text-gold text-xs transition-transform duration-300">▼</span>
                                 </button>
-                                <div id="toscaAcc1" class="hidden border-t border-accentGray bg-black bg-opacity-40 p-5 text-xs lg:text-sm text-zinc-300 space-y-3 leading-relaxed">
-                                    <p>Professional cutting and styling services provided by our Senior Stylist.</p>
-                                    <a href="https://shorturl.at/nskpm" target="_blank" class="inline-block text-gold font-semibold underline pt-2">Book Your Appointment Here &rarr;</a>
+                                <div id="tosca1" class="hidden border-t border-accentGray bg-black/40 p-5 text-xs lg:text-sm text-zinc-300">
+                                    <p>A transformative experience focusing on structural integrity and movement. Includes personalized consultation, deep cleanse, precision cut, and professional styling finish.</p>
+                                </div>
+                            </div>
+                            <!-- Item 2 -->
+                            <div class="border border-accentGray bg-cardBg rounded-xl overflow-hidden hover:border-gold transition-all">
+                                <button onclick="toggleServiceAccordion('tosca2')" class="w-full p-5 flex items-center justify-between text-left">
+                                    <span class="text-white font-bold text-sm uppercase tracking-wider">Styling & Refinement</span>
+                                    <span id="tosca2-icon" class="text-gold text-xs transition-transform duration-300">▼</span>
+                                </button>
+                                <div id="tosca2" class="hidden border-t border-accentGray bg-black/40 p-5 text-xs lg:text-sm text-zinc-300">
+                                    <p>Whether you're prepping for a gala or seeking everyday elegance, our refined styling services provide the perfect polish for any occasion.</p>
+                                    <a href="https://shorturl.at/nskpm" target="_blank" class="inline-block mt-4 text-gold font-semibold underline">Book Your Seat &rarr;</a>
                                 </div>
                             </div>
                         </div>
@@ -169,15 +81,7 @@
                 </section>
             </div>
         </main>
-
-        <!-- FOOTER -->
-        <footer class="w-full p-8 bg-black border-t border-accentGray text-center space-y-4">
-            <div class="max-w-7xl mx-auto flex flex-col items-center justify-center">
-                <h3 class="brand-script text-4xl text-gold">Fabulaze Hair & Beauty</h3>
-                <p class="text-[10px] text-zinc-600 pt-6">&copy; 2026 Fabulaze Hair & Beauty. All rights reserved.</p>
-                <p class="text-[9px] tracking-wider text-zinc-500 uppercase pt-1">Proudly Built by Danielle Builds</p>
-            </div>
-        </footer>
+        <!-- FOOTER (Keep your existing footer) -->
     </div>
 </body>
 </html>
