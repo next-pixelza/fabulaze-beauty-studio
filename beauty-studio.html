@@ -45,18 +45,7 @@
             el.classList.toggle('hidden');
         }
 
-        // Close dropdowns when clicking outside
-        window.addEventListener('click', function(e) {
-            const dropdowns = ['desktopDrop1', 'desktopDrop2', 'mobDrop1', 'mobDrop2'];
-            dropdowns.forEach(id => {
-                const el = document.getElementById(id);
-                // Check if the click target is NOT the menu or its parent button
-                if (!el.contains(e.target) && !e.target.closest('button')) {
-                    el.classList.add('hidden');
-                }
-            });
-        });
-
+        
         function toggleServiceAccordion(id) {
             const target = document.getElementById(id);
             const icon = document.getElementById(id + '-icon');
