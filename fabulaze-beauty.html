@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Fabulaze Studio - Fabulaze Hair & Beauty</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        .brand-script {
+            font-family: 'Alex Brush', cursive;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #000000;
+            overflow-x: hidden;
+        }
+        /* Custom scroll-driven fade-in animation rules */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform;
+        }
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#E2B94F',
+                        darkBg: '#000000',
+                        cardBg: '#121212',
+                        accentGray: '#333333',
+                        textColor: '#F3F3F3'
+                    }
+                }
+            }
+        }
+        
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+        
+        function toggleDropdown(id) {
+            const dropdown = document.getElementById(id);
+            dropdown.classList.toggle('hidden');
+        }
+
+        // Intersection Observer logic for scroll animations
+        document.addEventListener("DOMContentLoaded", () => {
+            const reveals = document.querySelectorAll('.scroll-reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            });
+            
+            reveals.forEach(el => observer.observe(el));
+        });
+    </script>
+</head>
+<body class="text-textColor antialiased min-h-screen bg-black flex flex-col items-center">
+
+    <div class="w-full bg-darkBg min-h-screen flex flex-col">
+        
+        <header class="w-full p-6 border-b border-accentGray bg-black sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto flex items-center justify-between">
+                <div class="text-left">
+                    <a href="index.html" class="brand-script text-4xl text-gold tracking-wide select-none block">Fabulaze Hair & Beauty</a>
+                </div>
+
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-gold focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+
+                <nav class="hidden lg:flex items-center gap-8 text-xs font-semibold tracking-wider uppercase">
+                    <a href="index.html" class="hover:text-gold transition-colors">Home</a>
+                    <a href="#" class="text-gold transition-colors">About Us</a>
+                    <a href="beauty-studio.html" class="hover:text-gold transition-colors">BeautyStudio by Danica</a>
+                    
+                    <div class="relative group">
+                        <button class="hover:text-gold transition-colors flex items-center gap-1 uppercase font-semibold focus:outline-none">
+                            Fabulaze Studio <span class="text-[10px]">▼</span>
+                        </button>
+                        <div class="absolute left-0 mt-2 py-2 w-48 bg-cardBg border border-gold rounded shadow-xl hidden group-hover:block">
+                            <a href="#" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Nail Studio</a>
+                            <a href="#" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Beautician Nunu</a>
+                            <a href="#" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Fabulaze by Anika</a>
+                        </div>
+                    </div>
+
+                    <div class="relative group">
+                        <button class="hover:text-gold transition-colors flex items-center gap-1 uppercase font-semibold focus:outline-none">
+                            Fabulaze Hair <span class="text-[10px]">▼</span>
+                        </button>
+                        <div class="absolute left-0 mt-2 py-2 w-48 bg-cardBg border border-gold rounded shadow-xl hidden group-hover:block">
+                            <a href="#" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Hair by Elsja</a>
+                            <a href="#" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Hair by Monique</a>
+                            <a href="#" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Hair by Dominique</a>
+                        </div>
+                    </div>
+
+                    <a href="#" class="hover:text-gold transition-colors">Our Work</a>
+                    <a href="#" class="hover:text-gold transition-colors">Contact Us</a>
+                </nav>
+            </div>
+
+            <div id="mobileMenu" class="hidden lg:hidden mt-4 pt-4 border-t border-accentGray space-y-3 font-semibold uppercase tracking-wider text-sm text-center">
+                <a href="index.html" class="block hover:text-gold py-1">Home</a>
+                <a href="#" class="block text-gold py-1">About Us</a>
+                <a href="beauty-studio.html" class="block hover:text-gold py-1">BeautyStudio by Danica</a>
+                
+                <div>
+                    <button onclick="toggleDropdown('mobDrop1')" class="w-full text-center hover:text-gold py-1 flex justify-center items-center gap-1">
+                        <span>Fabulaze Studio</span> <span class="text-[10px]">▼</span>
+                    </button>
+                    <div id="mobDrop1" class="hidden bg-cardBg border border-gold mt-1 space-y-2 py-2 rounded">
+                        <a href="#" class="block text-xs text-gold py-1">Nail Studio</a>
+                        <a href="#" class="block text-xs text-gold py-1">Beautician Nunu</a>
+                        <a href="#" class="block text-xs text-gold py-1">Fabulaze by Anika</a>
+                    </div>
+                </div>
+
+                <div>
+                    <button onclick="toggleDropdown('mobDrop2')" class="w-full text-center hover:text-gold py-1 flex justify-center items-center gap-1">
+                        <span>Fabulaze Hair</span> <span class="text-[10px]">▼</span>
+                    </button>
+                    <div id="mobDrop2" class="hidden bg-cardBg border border-gold mt-1 space-y-2 py-2 rounded">
+                        <a href="#" class="block text-xs text-gold py-1">Hair by Elsja</a>
+                        <a href="#" class="block text-xs text-gold py-1">Hair by Monique</a>
+                        <a href="#" class="block text-xs text-gold py-1">Hair by Dominique</a>
+                    </div>
+                </div>
+
+                <a href="#" class="block hover:text-gold py-1">Our Work</a>
+                <a href="#" class="block hover:text-gold py-1">Contact Us</a>
+            </div>
+        </header>
+
+        <main class="flex-grow">
+
+            <section class="relative w-full min-h-[300px] lg:h-[400px] border-b border-accentGray flex items-center justify-center overflow-hidden">
+                <div class="absolute inset-0">
+                    <img src="sugarlips.jfif" alt="About Fabulaze Studio Hero" class="w-full h-full object-cover brightness-50">
+                </div>
+                
+                <div class="relative z-10 text-center space-y-3 px-6">
+                    <h2 class="text-gold font-bold text-4xl lg:text-5xl uppercase tracking-wider">About Fabulaze Studio</h2>
+                    <p class="text-white text-xs lg:text-sm font-semibold tracking-widest uppercase italic bg-black bg-opacity-40 px-4 py-1.5 inline-block rounded-md">
+                        Affordable Beauty Treatments in Cape Town
+                    </p>
+                </div>
+            </section>
+
+            <section class="w-full px-6 py-16 scroll-reveal">
+                <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+                    
+                    <div class="w-full lg:w-7/12 flex flex-col justify-center space-y-6 order-2 lg:order-1">
+                        <div class="text-center lg:text-left space-y-5">
+                            <h2 class="brand-script text-5xl lg:text-6xl text-gold tracking-wide">LET’S TALK ABOUT BEAUTY</h2>
+                            
+                            <div class="space-y-4 text-zinc-300 text-sm lg:text-base leading-relaxed text-justify">
+                                <p>
+                                    Fabulaze Beauty Studio started as a Covid baby in 2020 by two best friends Danica & Anika.
+                                </p>
+                                <p>
+                                    Danica, a qualified Play Therapist, and Anika, a Hairdresser, had to find a way to support themselves when Schools & Hairdressers were forced to stay closed. They transformed the Play therapy office into a beauty Studio & only offered Permanent Laser Hair Removal, Laser Lipo Treatments & Eyelash Extensions.
+                                </p>
+                                <p>
+                                    Fabulaze has grown with lots of training, & another lady boss joining the team. We now offer a wide range of treatments from Acrylic Nails, Waxing, Spray Tan to Semi Permanent Make up & many more. We also have a Botox day every month.
+                                </p>
+                                <p>
+                                    The difference between Fabulaze and some other salons is the warm, casual feeling in our open plan Studio where we have chats and laughs — you are treated as family or a friend. We want everybody to feel welcome, also those clients that do not feel comfortable in a high-end salon.
+                                </p>
+                                <p class="border-l-2 border-gold pl-4 italic text-zinc-100">
+                                    Our motto is <strong class="text-gold font-semibold">"We make Beauty Affordable"</strong> and that is why we strive to keep our prices affordable, our products the best quality, our Service fabulaze and the best quality workmanship.
+                                </p>
+                                <p class="font-semibold text-white pt-2">
+                                    At Fabulaze Beauty Studio you will be made to feel fabulaze. We look forward to meeting you!
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto lg:mx-0 pt-4">
+                            <button class="bg-gold text-black px-8 py-3 rounded font-bold text-xs uppercase tracking-wider transition-transform hover:scale-105 active:scale-95 flex-1">
+                                Book Treatment
+                            </button>
+                            <button class="border border-gold text-gold px-8 py-3 rounded font-bold text-xs uppercase tracking-wider transition-transform hover:scale-105 active:scale-95 hover:bg-gold hover:text-black flex-1">
+                                Contact Team
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="w-full lg:w-5/12 max-w-md lg:max-w-none bg-zinc-900 border border-accentGray rounded-3xl overflow-hidden shadow-2xl flex-shrink-0 order-1 lg:order-2">
+                        <img src="FS Danica.png" alt="FS Danica" class="w-full h-auto object-cover block">
+                    </div>
+
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="w-full p-8 bg-black border-t border-accentGray text-center space-y-2">
+            <div class="max-w-7xl mx-auto">
+                <h3 class="brand-script text-4xl text-gold">Fabulaze Hair & Beauty</h3>
+                <p class="text-xs text-gold font-bold tracking-widest uppercase italic">We Make Beauty Affordable</p>
+                <p class="text-[10px] text-zinc-600 pt-6">&copy; 2026 Fabulaze Hair & Beauty. All rights reserved.</p>
+                <p class="text-[10px] text-zinc-600 pt-6">Proudly Built by Danielle Builds</p>
+            </div>
+        </footer>
+
+    </div>
+
+</body>
+</html>
