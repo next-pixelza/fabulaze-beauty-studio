@@ -18,6 +18,18 @@
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: #000000;
+            overflow-x: hidden;
+        }
+        /* Custom scroll-driven fade-in animation rules */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform;
+        }
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
     <script>
@@ -43,6 +55,25 @@
             const dropdown = document.getElementById(id);
             dropdown.classList.toggle('hidden');
         }
+
+        // Intersection Observer logic for scroll animations
+        document.addEventListener("DOMContentLoaded", () => {
+            const reveals = document.querySelectorAll('.scroll-reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // Optional: unobserve if you only want the animation to play once
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            });
+            
+            reveals.forEach(el => observer.observe(el));
+        });
     </script>
 </head>
 <body class="text-textColor antialiased min-h-screen bg-black flex flex-col items-center">
@@ -155,95 +186,102 @@
                 </div>
             </section>
 
-            <!-- TWO COLUMN RESPONSIVE LAYOUT FOR MIDDLE BODY DETAILS -->
-            <div class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-12 gap-12">
+            <!-- FULL WIDTH STRUCTURAL WRAPPER FOR SUBSECTIONS -->
+            <div class="w-full space-y-16 py-16">
                 
-                <!-- LEFT MAIN LAYOUT SECTION (Meet Danica Card Profile Layout) -->
-                <div class="lg:col-span-6 flex flex-col justify-center">
-                    <div class="w-full border-2 border-gold rounded-3xl p-6 bg-black flex flex-col items-center space-y-6">
+                <!-- MEET DANICA SECTION (Now completely full width) -->
+                <section class="w-full px-6 scroll-reveal">
+                    <div class="max-w-7xl mx-auto border-2 border-gold rounded-3xl p-6 lg:p-12 bg-black flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
                         
                         <!-- Profile Image asset: "FS Danica" -->
-                        <div class="w-full aspect-[4/5] max-w-md bg-zinc-900 border border-accentGray rounded-xl overflow-hidden">
+                        <div class="w-full lg:w-1/2 aspect-[4/5] max-w-md bg-zinc-900 border border-accentGray rounded-xl overflow-hidden flex-shrink-0">
                             <img src="FS Danica.png" alt="FS Danica" class="w-full h-full object-cover">
                         </div>
 
-                        <div class="text-center w-full px-2 space-y-4">
-                            <h2 class="brand-script text-5xl text-gold">Meet Danica</h2>
-                            <p class="text-xs lg:text-sm text-zinc-300 leading-relaxed text-justify">
-                                As the proud <strong class="text-white font-semibold">owner of Fabulaze Hair & Beauty</strong> and a certified beauty specialist, Danica brings expertise, passion, and precision to every treatment. From advanced facial and body treatments to lash extensions, permanent makeup, and laser hair removal, she ensures every client leaves feeling radiant, confident, and pampered in a professional, welcoming environment.
-                            </p>
+                        <!-- Info Content Block -->
+                        <div class="w-full lg:w-1/2 flex flex-col justify-center space-y-6">
+                            <div class="text-center lg:text-left space-y-4">
+                                <h2 class="brand-script text-6xl text-gold">Meet Danica</h2>
+                                <p class="text-sm lg:text-base text-zinc-300 leading-relaxed text-justify">
+                                    As the proud <strong class="text-white font-semibold">owner of Fabulaze Hair & Beauty</strong> and a certified beauty specialist, Danica brings expertise, passion, and precision to every treatment. From advanced facial and body treatments to lash extensions, permanent makeup, and laser hair removal, she ensures every client leaves feeling radiant, confident, and pampered in a professional, welcoming environment.
+                                </p>
+                            </div>
+
+                            <div class="w-full max-w-md mx-auto lg:mx-0 space-y-3 pt-2">
+                                <button class="w-full py-3 bg-gold text-black font-bold uppercase text-xs tracking-wider rounded shadow hover:bg-yellow-600 transition-colors">
+                                    Book Now
+                                </button>
+                                <button class="w-full py-3 border border-gold text-gold font-bold uppercase text-xs tracking-wider rounded shadow hover:bg-gold hover:text-black transition-colors">
+                                    WhatsApp Booking
+                                </button>
+                            </div>
                         </div>
 
-                        <div class="w-full max-w-md space-y-3 pt-2">
-                            <button class="w-full py-3 bg-gold text-black font-bold uppercase text-xs tracking-wider rounded shadow hover:bg-yellow-600 transition-colors">
-                                Book Now
-                            </button>
-                            <button class="w-full py-3 border border-gold text-gold font-bold uppercase text-xs tracking-wider rounded shadow hover:bg-gold hover:text-black transition-colors">
-                                WhatsApp Booking
-                            </button>
-                        </div>
                     </div>
-                </div>
+                </section>
 
-                <!-- RIGHT MAIN LAYOUT SECTION (Slider Gallery & Google Reviews Sync Hook) -->
-                <div class="lg:col-span-6 flex flex-col justify-between space-y-8">
-                    
-                    <!-- IMAGE SLIDER WRAPPER -->
-                    <div class="w-full space-y-3">
-                        <h3 class="text-white font-bold text-sm uppercase tracking-wider pl-1">Our Showcase Gallery</h3>
-                        <div class="relative w-full aspect-square max-h-[450px] bg-zinc-900 border border-accentGray rounded-xl overflow-hidden flex items-center justify-center">
-                            <span class="text-xs text-zinc-600 uppercase tracking-widest font-semibold">[ Image Slider Placeholder ]</span>
+                <!-- IMAGE SLIDER WRAPPER (Now full width section below Meet Danica) -->
+                <section class="w-full px-6 scroll-reveal">
+                    <div class="max-w-7xl mx-auto space-y-4">
+                        <h3 class="text-white font-bold text-base uppercase tracking-wider pl-1 text-center lg:text-left">Our Showcase Gallery</h3>
+                        <div class="relative w-full aspect-[16/9] md:aspect-[21/9] bg-zinc-900 border border-accentGray rounded-xl overflow-hidden flex items-center justify-center">
+                            <span class="text-xs lg:text-sm text-zinc-600 uppercase tracking-widest font-semibold">[ Full-Width Image Slider Placeholder ]</span>
                             
-                            <button class="absolute left-3 w-9 h-9 rounded bg-gold text-black flex items-center justify-center font-bold shadow hover:bg-yellow-600">&lt;</button>
-                            <button class="absolute right-3 w-9 h-9 rounded bg-gold text-black flex items-center justify-center font-bold shadow hover:bg-yellow-600">&gt;</button>
+                            <button class="absolute left-4 w-10 h-10 rounded-full bg-gold text-black flex items-center justify-center font-bold shadow hover:bg-yellow-600 transition-transform hover:scale-105">&lt;</button>
+                            <button class="absolute right-4 w-10 h-10 rounded-full bg-gold text-black flex items-center justify-center font-bold shadow hover:bg-yellow-600 transition-transform hover:scale-105">&gt;</button>
                         </div>
                     </div>
+                </section>
 
-                    <!-- REVIEWS ENGINE FEED PANEL -->
-                    <div class="w-full space-y-4">
-                        <div class="flex items-center justify-between border-b border-accentGray pb-2">
-                            <h3 class="text-gold font-bold text-sm uppercase tracking-wider">Customer Feedback</h3>
-                            <a href="https://share.google/Ixwl7cCuZTUlnTUYE" target="_blank" class="text-[10px] lg:text-xs text-blue-400 hover:underline">View All Google Reviews</a>
+                <!-- REVIEWS ENGINE FEED PANEL (Now located full width underneath slider) -->
+                <section class="w-full px-6 scroll-reveal">
+                    <div class="max-w-7xl mx-auto space-y-6">
+                        <div class="flex items-center justify-between border-b border-accentGray pb-3">
+                            <h3 class="text-gold font-bold text-lg uppercase tracking-wider">Customer Feedback</h3>
+                            <a href="https://share.google/Ixwl7cCuZTUlnTUYE" target="_blank" class="text-xs text-blue-400 hover:underline">View All Google Reviews</a>
                         </div>
 
-                        <!-- Review Item Block 1 -->
-                        <div class="bg-cardBg p-4 rounded-xl border border-accentGray text-xs space-y-2">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap-2">
-                                    <div class="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center text-[10px] font-bold text-white">KK</div>
-                                    <div>
-                                        <h4 class="font-bold text-white">Kaylinn Kindo</h4>
-                                        <span class="text-[9px] text-zinc-500 block">2025-07-02</span>
+                        <!-- Responsive grid containing review structures -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Review Item Block 1 -->
+                            <div class="bg-cardBg p-6 rounded-xl border border-accentGray text-sm space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center text-xs font-bold text-white">KK</div>
+                                        <div>
+                                            <h4 class="font-bold text-white">Kaylinn Kindo</h4>
+                                            <span class="text-[10px] text-zinc-500 block">2025-07-02</span>
+                                        </div>
                                     </div>
+                                    <span class="text-blue-500 font-bold text-base">G</span>
                                 </div>
-                                <span class="text-blue-500 font-bold text-sm">G</span>
+                                <div class="text-gold text-xs">★★★★★ <span class="text-blue-400 bg-blue-950 px-2 py-0.5 rounded ml-1 text-[10px]">✔ Verified</span></div>
+                                <p class="text-zinc-400 leading-relaxed">
+                                    The best hair doing experience I've had! Thank you so much Monique. Friendly, caring, observant and thorough effort. ...
+                                </p>
                             </div>
-                            <div class="text-gold text-[10px]">★★★★★ <span class="text-blue-400 bg-blue-950 px-1 rounded ml-1 text-[8px]">✔ Verified</span></div>
-                            <p class="text-zinc-400 leading-relaxed">
-                                The best hair doing experience I've had! Thank you so much Monique. Friendly, caring, observant and thorough effort. ...
-                            </p>
-                        </div>
 
-                        <!-- Review Item Block 2 -->
-                        <div class="bg-cardBg p-4 rounded-xl border border-accentGray text-xs space-y-2">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap-2">
-                                    <div class="w-8 h-8 rounded-full bg-orange-700 flex items-center justify-center text-[10px] font-bold text-white">JM</div>
-                                    <div>
-                                        <h4 class="font-bold text-white">jayshree moonasar</h4>
-                                        <span class="text-[9px] text-zinc-500 block">2025-06-18</span>
+                            <!-- Review Item Block 2 -->
+                            <div class="bg-cardBg p-6 rounded-xl border border-accentGray text-sm space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-full bg-orange-700 flex items-center justify-center text-xs font-bold text-white">JM</div>
+                                        <div>
+                                            <h4 class="font-bold text-white">jayshree moonasar</h4>
+                                            <span class="text-[10px] text-zinc-500 block">2025-06-18</span>
+                                        </div>
                                     </div>
+                                    <span class="text-blue-500 font-bold text-base">G</span>
                                 </div>
-                                <span class="text-blue-500 font-bold text-sm">G</span>
+                                <div class="text-gold text-xs">★★★★★ <span class="text-blue-400 bg-blue-950 px-2 py-0.5 rounded ml-1 text-[10px]">✔ Verified</span></div>
+                                <p class="text-zinc-400 leading-relaxed">
+                                    Good day. Thank you Monique for seeing me this morning. Love my haircut. Will definitely be back. 🙏
+                                </p>
                             </div>
-                            <div class="text-gold text-[10px]">★★★★★ <span class="text-blue-400 bg-blue-950 px-1 rounded ml-1 text-[8px]">✔ Verified</span></div>
-                            <p class="text-zinc-400 leading-relaxed">
-                                Good day. Thank you Monique for seeing me this morning. Love my haircut. Will definitely be back. 🙏
-                            </p>
                         </div>
                     </div>
+                </section>
 
-                </div>
             </div>
 
         </main>
