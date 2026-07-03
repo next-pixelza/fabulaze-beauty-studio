@@ -51,9 +51,41 @@
             const menu = document.getElementById('mobileMenu');
             menu.classList.toggle('hidden');
         }
+        
         function toggleDropdown(id) {
             const dropdown = document.getElementById(id);
             dropdown.classList.toggle('hidden');
+        }
+
+        // Slider Functionality
+        let currentSlide = 0;
+        const totalSlides = 11;
+
+        function showSlide(index) {
+            const currentSliderTrack = document.getElementById('sliderTrack');
+            if (!currentSliderTrack) return;
+            
+            if (index >= totalSlides) currentSlide = 0;
+            else if (index < 0) currentSlide = totalSlides - 1;
+            else currentSlide = index;
+
+            currentSliderTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        // Auto-play slider (optional, transitions every 5 seconds)
+        let slideInterval = setInterval(nextSlide, 5000);
+
+        function resetSliderInterval() {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(nextSlide, 5000);
         }
 
         // Intersection Observer logic for scroll animations
@@ -63,7 +95,6 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('active');
-                        // Optional: unobserve if you only want the animation to play once
                         observer.unobserve(entry.target);
                     }
                 });
@@ -220,15 +251,34 @@
                     </div>
                 </section>
 
-                <!-- IMAGE SLIDER WRAPPER (Now full width section below Meet Danica) -->
+                <!-- ACTIVE WORKING IMAGE SLIDER (Updated slider1.jfif to slider11.jfif) -->
                 <section class="w-full px-6 scroll-reveal">
                     <div class="max-w-7xl mx-auto space-y-4">
                         <h3 class="text-white font-bold text-base uppercase tracking-wider pl-1 text-center lg:text-left">Our Showcase Gallery</h3>
-                        <div class="relative w-full aspect-[16/9] md:aspect-[21/9] bg-zinc-900 border border-accentGray rounded-xl overflow-hidden flex items-center justify-center">
-                            <span class="text-xs lg:text-sm text-zinc-600 uppercase tracking-widest font-semibold">[ Full-Width Image Slider Placeholder ]</span>
+                        <div class="relative w-full aspect-[4/3] md:aspect-[16/9] lg:aspect-[21/9] bg-zinc-900 border border-accentGray rounded-xl overflow-hidden group">
                             
-                            <button class="absolute left-4 w-10 h-10 rounded-full bg-gold text-black flex items-center justify-center font-bold shadow hover:bg-yellow-600 transition-transform hover:scale-105">&lt;</button>
-                            <button class="absolute right-4 w-10 h-10 rounded-full bg-gold text-black flex items-center justify-center font-bold shadow hover:bg-yellow-600 transition-transform hover:scale-105">&gt;</button>
+                            <!-- Slider Track wrapper with CSS transition layout -->
+                            <div id="sliderTrack" class="w-full h-full flex transition-transform duration-700 ease-in-out will-change-transform">
+                                <div class="w-full h-full flex-shrink-0"><img src="slider1.jfif" alt="Gallery Showcase 1" class="w-full h-full object-cover"></div>
+                                <div class="w-full h-full flex-shrink-0"><img src="slider2.jfif" alt="Gallery Showcase 2" class="w-full h-full object-cover"></div>
+                                <div class="w-full h-full flex-shrink-0"><img src="slider3.jfif" alt="Gallery Showcase 3" class="w-full h-full object-cover"></div>
+                                <div class="w-full h-full flex-shrink-0"><img src="slider4.jfif" alt="Gallery Showcase 4" class="w-full h-full object-cover"></div>
+                                <div class="w-full h-full flex-shrink-0"><img src="slider5.jfif" alt="Gallery Showcase 5" class="w-full h-full object-cover"></div>
+                                <div class="w-full h-full flex-shrink-0"><img src="slider6.jfif" alt="Gallery Showcase 6" class="w-full h-full object-cover"></div>
+                                <div class="w-full h-full flex-shrink-0"><img src="slider7.jfif" alt="Gallery Showcase 7" class="w-full h-full object-cover"></div>
+                                <div class="w-full h-full flex-shrink-0"><img src="slider8.jfif" alt="Gallery Showcase 8" class="w-full h-full object-cover"></div>
+                                <div class="w-full h-full flex-shrink-0"><img src="slider9.jfif" alt="Gallery Showcase 9" class="w-full h-full object-cover"></div>
+                                <div class="w-full h-full flex-shrink-0"><img src="slider10.jfif" alt="Gallery Showcase 10" class="w-full h-full object-cover"></div>
+                                <div class="w-full h-full flex-shrink-0"><img src="slider11.jfif" alt="Gallery Showcase 11" class="w-full h-full object-cover"></div>
+                            </div>
+                            
+                            <!-- Navigation Controls -->
+                            <button onclick="prevSlide(); resetSliderInterval();" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black bg-opacity-70 border border-gold text-gold flex items-center justify-center font-bold shadow transition-all hover:bg-gold hover:text-black hover:scale-105 z-20">
+                                &#10094;
+                            </button>
+                            <button onclick="nextSlide(); resetSliderInterval();" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black bg-opacity-70 border border-gold text-gold flex items-center justify-center font-bold shadow transition-all hover:bg-gold hover:text-black hover:scale-105 z-20">
+                                &#10095;
+                            </button>
                         </div>
                     </div>
                 </section>
@@ -291,7 +341,7 @@
             <div class="max-w-7xl mx-auto">
                 <h3 class="brand-script text-4xl text-gold">Fabulaze Hair & Beauty</h3>
                 <p class="text-xs text-gold font-bold tracking-widest uppercase italic">We Make Beauty Affordable</p>
-                <p class="text-[10px] text-zinc-600 pt-6">&copy; 2025 Fabulaze Hair & Beauty. All rights reserved.</p>
+                <p class="text-[10px] text-zinc-600 pt-6">&copy; 2026 Fabulaze Hair & Beauty. All rights reserved.</p>
             </div>
         </footer>
 
