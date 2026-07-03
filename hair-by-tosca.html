@@ -12,12 +12,18 @@
     <style>
         .brand-script { font-family: 'Alex Brush', cursive; }
         body { font-family: 'Montserrat', sans-serif; background-color: #000000; overflow-x: hidden; }
-        .scroll-reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
-        .scroll-reveal.active { opacity: 1; transform: translateY(0); }
     </style>
     <script>
         tailwind.config = { theme: { extend: { colors: { gold: '#E2B94F', darkBg: '#000000', cardBg: '#121212', accentGray: '#333333', textColor: '#F3F3F3' } } } }
         
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('hidden');
+        }
+
+        function toggleDropdown(id) {
+            document.getElementById(id).classList.toggle('hidden');
+        }
+
         function toggleServiceAccordion(id) {
             const target = document.getElementById(id);
             const icon = document.getElementById(id + '-icon');
@@ -29,34 +35,39 @@
 <body class="text-textColor antialiased min-h-screen bg-black flex flex-col items-center">
 
     <div class="w-full bg-darkBg min-h-screen flex flex-col">
-        <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-gold focus:outline-none">
+        <!-- HEADER -->
+        <header class="w-full p-6 border-b border-accentGray bg-black sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto flex items-center justify-between">
+                <div class="text-left">
+                    <a href="index.html" class="brand-script text-4xl text-gold tracking-wide select-none block">Fabulaze Hair & Beauty</a>
+                </div>
+
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-gold focus:outline-none">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                 </button>
 
                 <nav class="hidden lg:flex items-center gap-8 text-xs font-semibold tracking-wider uppercase">
-                    <a href="index.html" class="text-gold transition-colors">Home</a>
+                    <a href="index.html" class="hover:text-gold transition-colors">Home</a>
                     <a href="Fabulaze-Beauty.html" class="hover:text-gold transition-colors">About Us</a>
                     <a href="beauty-studio.html" class="hover:text-gold transition-colors">BeautyStudio by Danica</a>
                     
-                    <!-- Fabulaze Studio Dropdown -->
                     <div class="relative">
                         <button onclick="toggleDropdown('desktopDrop1')" class="hover:text-gold transition-colors flex items-center gap-1 uppercase font-semibold focus:outline-none">
                             Fabulaze Studio <span class="text-[10px]">▼</span>
                         </button>
                         <div id="desktopDrop1" class="absolute left-0 mt-2 py-2 w-48 bg-cardBg border border-gold rounded shadow-xl hidden z-50">
-                            <a href="nail-studio.html" onclick="selectOption('desktopDrop1')" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Nail Studio</a>
+                            <a href="nail-studio.html" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Nail Studio</a>
                         </div>
                     </div>
 
-                    <!-- Fabulaze Hair Dropdown -->
                     <div class="relative">
                         <button onclick="toggleDropdown('desktopDrop2')" class="hover:text-gold transition-colors flex items-center gap-1 uppercase font-semibold focus:outline-none">
                             Fabulaze Hair <span class="text-[10px]">▼</span>
                         </button>
                         <div id="desktopDrop2" class="absolute left-0 mt-2 py-2 w-48 bg-cardBg border border-gold rounded shadow-xl hidden z-50">
-                            <a href="hair-by-tosca.html" onclick="selectOption('desktopDrop2')" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Hair by Tosca</a>
-                            <a href="hair-by-nushy.html" onclick="selectOption('desktopDrop2')" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Hair by Nushy</a>
-                            <a href="hair-by-dom.html" onclick="selectOption('desktopDrop2')" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Hair by Dominique</a>
+                            <a href="hair-by-tosca.html" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Hair by Tosca</a>
+                            <a href="hair-by-nushy.html" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Hair by Nushy</a>
+                            <a href="hair-by-dom.html" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Hair by Dominique</a>
                         </div>
                     </div>
 
@@ -67,7 +78,7 @@
 
             <!-- Mobile Menu -->
             <div id="mobileMenu" class="hidden lg:hidden mt-4 pt-4 border-t border-accentGray space-y-3 font-semibold uppercase tracking-wider text-sm text-center">
-                <a href="index.html" class="block text-gold py-1">Home</a>
+                <a href="index.html" class="block hover:text-gold py-1">Home</a>
                 <a href="Fabulaze-Beauty.html" class="block hover:text-gold py-1">About Us</a>
                 <a href="beauty-studio.html" class="block hover:text-gold py-1">BeautyStudio by Danica</a>
                 
@@ -79,7 +90,6 @@
                         <a href="nail-studio.html" class="block text-xs text-gold py-1">Nail Studio</a>
                     </div>
                 </div>
-
                 <div>
                     <button onclick="toggleDropdown('mobDrop2')" class="w-full text-center hover:text-gold py-1 flex justify-center items-center gap-1">
                         <span>Fabulaze Hair</span> <span class="text-[10px]">▼</span>
@@ -90,7 +100,6 @@
                         <a href="hair-by-dom.html" class="block text-xs text-gold py-1">Hair by Dominique</a>
                     </div>
                 </div>
-
                 <a href="our-work.html" class="block hover:text-gold py-1">Our Work</a>
                 <a href="contact.html" class="block hover:text-gold py-1">Contact Us</a>
             </div>
@@ -106,21 +115,17 @@
             <div class="w-full py-16">
                 <section class="w-full px-6">
                     <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
-                        
-                        <!-- EXPANDED CONTENT -->
                         <div class="w-full lg:w-5/12 space-y-6 lg:sticky lg:top-28">
                             <div class="space-y-3 text-center lg:text-left">
                                 <h3 class="text-gold text-xs font-semibold tracking-widest uppercase">The Art of Hair</h3>
                                 <h2 class="brand-script text-5xl text-gold">Meet Tosca</h2>
                                 <p class="text-sm text-zinc-300 leading-relaxed text-justify">
-                                    Step into a world where precision meets passion. Tosca doesn't just cut hair; she crafts silhouettes that celebrate your individuality. With an eye for detail and a mastery of texture, every appointment is a bespoke journey toward your most confident self. From transformative cuts to subtle refinements, experience the luxury of high-end styling designed exclusively for you.
+                                    Step into a world where precision meets passion. Tosca doesn't just cut hair; she crafts silhouettes that celebrate your individuality. With an eye for detail and a mastery of texture, every appointment is a bespoke journey toward your most confident self.
                                 </p>
                             </div>
                         </div>
 
-                        <!-- ACCORDION SECTION -->
                         <div class="w-full lg:w-7/12 space-y-4">
-                            <!-- Item 1 -->
                             <div class="border border-accentGray bg-cardBg rounded-xl overflow-hidden hover:border-gold transition-all">
                                 <button onclick="toggleServiceAccordion('tosca1')" class="w-full p-5 flex items-center justify-between text-left">
                                     <span class="text-white font-bold text-sm uppercase tracking-wider">Precision Signature Cut</span>
@@ -130,7 +135,6 @@
                                     <p>A transformative experience focusing on structural integrity and movement. Includes personalized consultation, deep cleanse, precision cut, and professional styling finish.</p>
                                 </div>
                             </div>
-                            <!-- Item 2 -->
                             <div class="border border-accentGray bg-cardBg rounded-xl overflow-hidden hover:border-gold transition-all">
                                 <button onclick="toggleServiceAccordion('tosca2')" class="w-full p-5 flex items-center justify-between text-left">
                                     <span class="text-white font-bold text-sm uppercase tracking-wider">Styling & Refinement</span>
@@ -146,7 +150,16 @@
                 </section>
             </div>
         </main>
-        <!-- FOOTER (Keep your existing footer) -->
+
+        <!-- FOOTER -->
+        <footer class="w-full p-8 bg-black border-t border-accentGray text-center space-y-4">
+            <div class="max-w-7xl mx-auto flex flex-col items-center justify-center">
+                <h3 class="brand-script text-4xl text-gold">Fabulaze Hair & Beauty</h3>
+                <p class="text-xs text-gold font-bold tracking-widest uppercase italic">We Make Beauty Affordable</p>
+                <p class="text-[10px] text-zinc-600 pt-6">&copy; 2026 Fabulaze Hair & Beauty. All rights reserved.</p>
+                <p class="text-[9px] tracking-wider text-zinc-500 uppercase pt-1">Proudly Built by Danielle Builds</p>
+            </div>
+        </footer>
     </div>
 </body>
 </html>
