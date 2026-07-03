@@ -36,14 +36,78 @@
 
     <div class="w-full bg-darkBg min-h-screen flex flex-col">
         <!-- HEADER -->
+        <div class="w-full bg-darkBg min-h-screen flex flex-col">
+        
         <header class="w-full p-6 border-b border-accentGray bg-black sticky top-0 z-50">
             <div class="max-w-7xl mx-auto flex items-center justify-between">
-                <a href="index.html" class="brand-script text-4xl text-gold tracking-wide select-none block">Fabulaze Hair & Beauty</a>
+                <div class="text-left">
+                    <h1 class="brand-script text-4xl text-gold tracking-wide select-none">Fabulaze Hair & Beauty</h1>
+                </div>
+
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-gold focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+
                 <nav class="hidden lg:flex items-center gap-8 text-xs font-semibold tracking-wider uppercase">
-                    <a href="index.html" class="hover:text-gold">Home</a>
-                    <a href="hair-by-nushy.html" class="text-gold">Hair by Nushy</a>
-                    <a href="contact.html" class="hover:text-gold">Contact Us</a>
+                    <a href="index.html" class="text-gold transition-colors">Home</a>
+                    <a href="Fabulaze-Beauty.html" class="hover:text-gold transition-colors">About Us</a>
+                    <a href="beauty-studio.html" class="hover:text-gold transition-colors">BeautyStudio by Danica</a>
+                    
+                    <!-- Fabulaze Studio Dropdown -->
+                    <div class="relative">
+                        <button onclick="toggleDropdown('desktopDrop1')" class="hover:text-gold transition-colors flex items-center gap-1 uppercase font-semibold focus:outline-none">
+                            Fabulaze Studio <span class="text-[10px]">▼</span>
+                        </button>
+                        <div id="desktopDrop1" class="absolute left-0 mt-2 py-2 w-48 bg-cardBg border border-gold rounded shadow-xl hidden z-50">
+                            <a href="nail-studio.html" onclick="selectOption('desktopDrop1')" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Nail Studio</a>
+                        </div>
+                    </div>
+
+                    <!-- Fabulaze Hair Dropdown -->
+                    <div class="relative">
+                        <button onclick="toggleDropdown('desktopDrop2')" class="hover:text-gold transition-colors flex items-center gap-1 uppercase font-semibold focus:outline-none">
+                            Fabulaze Hair <span class="text-[10px]">▼</span>
+                        </button>
+                        <div id="desktopDrop2" class="absolute left-0 mt-2 py-2 w-48 bg-cardBg border border-gold rounded shadow-xl hidden z-50">
+                            <a href="hair-by-tosca.html" onclick="selectOption('desktopDrop2')" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Hair by Tasha</a>
+                            <a href="hair-by-nushy.html" onclick="selectOption('desktopDrop2')" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Hair by Nushy</a>
+                            <a href="hair-by-dom.html" onclick="selectOption('desktopDrop2')" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Hair by Dominique</a>
+                        </div>
+                    </div>
+
+                    <a href="our-work.html" class="hover:text-gold transition-colors">Our Work</a>
+                    <a href="contact.html" class="hover:text-gold transition-colors">Contact Us</a>
                 </nav>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden lg:hidden mt-4 pt-4 border-t border-accentGray space-y-3 font-semibold uppercase tracking-wider text-sm text-center">
+                <a href="index.html" class="block text-gold py-1">Home</a>
+                <a href="Fabulaze-Beauty.html" class="block hover:text-gold py-1">About Us</a>
+                <a href="beauty-studio.html" class="block hover:text-gold py-1">BeautyStudio by Danica</a>
+                
+                <div>
+                    <button onclick="toggleDropdown('mobDrop1')" class="w-full text-center hover:text-gold py-1 flex justify-center items-center gap-1">
+                        <span>Fabulaze Studio</span> <span class="text-[10px]">▼</span>
+                    </button>
+                    <div id="mobDrop1" class="hidden bg-cardBg border border-gold mt-1 space-y-2 py-2 rounded">
+                        <a href="nail-studio.html" class="block text-xs text-gold py-1">Nail Studio</a>
+                    </div>
+                </div>
+
+                <div>
+                    <button onclick="toggleDropdown('mobDrop2')" class="w-full text-center hover:text-gold py-1 flex justify-center items-center gap-1">
+                        <span>Fabulaze Hair</span> <span class="text-[10px]">▼</span>
+                    </button>
+                    <div id="mobDrop2" class="hidden bg-cardBg border border-gold mt-1 space-y-2 py-2 rounded">
+                        <a href="hair-by-tosca.html" class="block text-xs text-gold py-1">Hair by Tasha</a>
+                        <a href="hair-by-nushy.html" class="block text-xs text-gold py-1">Hair by Nushy</a>
+                        <a href="hair-by-dom.html" class="block text-xs text-gold py-1">Hair by Dominique</a>
+                    </div>
+                </div>
+
+                <a href="our-work.html" class="block hover:text-gold py-1">Our Work</a>
+                <a href="contact.html" class="block hover:text-gold py-1">Contact Us</a>
             </div>
         </header>
 
@@ -77,7 +141,16 @@
         </main>
 
         <footer class="w-full p-8 bg-black border-t border-accentGray text-center space-y-4">
-            <h3 class="brand-script text-4xl text-gold">Fabulaze Hair & Beauty</h3>
+            <div class="max-w-7xl mx-auto flex flex-col items-center justify-center">
+                <h3 class="brand-script text-4xl text-gold">Fabulaze Hair & Beauty</h3>
+                <p class="text-xs text-gold font-bold tracking-widest uppercase italic">We Make Beauty Affordable</p>
+                <div class="flex items-center gap-6 pt-4">
+                    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="text-zinc-400 hover:text-gold transition-colors"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg></a>
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="text-zinc-400 hover:text-gold transition-colors"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+                </div>
+                <p class="text-[10px] text-zinc-600 pt-6">&copy; 2026 Fabulaze Hair & Beauty. All rights reserved.</p>
+                <p class="text-[9px] tracking-wider text-zinc-500 uppercase pt-1">Proudly Built by Danielle Builds</p>
+            </div>
         </footer>
     </div>
 </body>
