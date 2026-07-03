@@ -1,1 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Work | Fabulaze Beauty Studio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        .brand-script { font-family: 'Alex Brush', cursive; }
+        body { font-family: 'Montserrat', sans-serif; background-color: #000000; overflow-x: hidden; }
+        .scroll-reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .scroll-reveal.active { opacity: 1; transform: translateY(0); }
+    </style>
+    <script>
+        tailwind.config = { theme: { extend: { colors: { gold: '#E2B94F', darkBg: '#000000', cardBg: '#121212', accentGray: '#333333', textColor: '#F3F3F3' } } } }
+        
+        function toggleMobileMenu() { document.getElementById('mobileMenu').classList.toggle('hidden'); }
+        function toggleDropdown(id) {
+            ['desktopDrop1', 'desktopDrop2', 'mobDrop1', 'mobDrop2'].forEach(dropId => {
+                if (dropId !== id) document.getElementById(dropId)?.classList.add('hidden');
+            });
+            document.getElementById(id)?.classList.toggle('hidden');
+        }
+        document.addEventListener("DOMContentLoaded", () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+        });
+    </script>
+</head>
+<body class="text-textColor antialiased min-h-screen bg-black flex flex-col items-center">
 
+    <div class="w-full bg-darkBg min-h-screen flex flex-col">
+        
+        <!-- Header -->
+        <header class="w-full p-6 border-b border-accentGray bg-black sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto flex items-center justify-between">
+                <div class="text-left">
+                    <h1 class="brand-script text-4xl text-gold tracking-wide select-none">Fabulaze Beauty Studio</h1>
+                </div>
+
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-gold focus:outline-none"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
+
+                <nav class="hidden lg:flex items-center gap-8 text-xs font-semibold tracking-wider uppercase">
+                    <a href="index.html" class="hover:text-gold transition-colors">Home</a>
+                    <a href="Fabulaze-Beauty.html" class="hover:text-gold transition-colors">About Us</a>
+                    <a href="our-work.html" class="text-gold transition-colors">Our Work</a>
+                    <a href="#" class="hover:text-gold transition-colors">Contact Us</a>
+                </nav>
+            </div>
+            
+            <div id="mobileMenu" class="hidden lg:hidden mt-4 pt-4 border-t border-accentGray space-y-3 font-semibold uppercase tracking-wider text-sm text-center">
+                <a href="index.html" class="block py-1">Home</a>
+                <a href="Fabulaze-Beauty.html" class="block py-1">About Us</a>
+                <a href="our-work.html" class="block text-gold py-1">Our Work</a>
+                <a href="#" class="block py-1">Contact Us</a>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow max-w-7xl w-full px-6 py-16">
+            <section class="text-center space-y-4 mb-16 scroll-reveal">
+                <h2 class="brand-script text-6xl text-gold">Our Work</h2>
+                <p class="text-zinc-400 max-w-2xl mx-auto">Explore our portfolio of transformations, ranging from intricate nail artistry to professional hair styling and aesthetic treatments.</p>
+            </section>
+
+            <!-- Gallery Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 scroll-reveal">
+                <!-- Repeat this block for each image -->
+                <div class="aspect-square bg-cardBg border border-accentGray rounded-xl overflow-hidden hover:border-gold transition-all">
+                    <img src="slider1.jfif" alt="Gallery Work" class="w-full h-full object-cover">
+                </div>
+                <div class="aspect-square bg-cardBg border border-accentGray rounded-xl overflow-hidden hover:border-gold transition-all">
+                    <img src="slider2.jfif" alt="Gallery Work" class="w-full h-full object-cover">
+                </div>
+                <div class="aspect-square bg-cardBg border border-accentGray rounded-xl overflow-hidden hover:border-gold transition-all">
+                    <img src="slider3.jfif" alt="Gallery Work" class="w-full h-full object-cover">
+                </div>
+                <div class="aspect-square bg-cardBg border border-accentGray rounded-xl overflow-hidden hover:border-gold transition-all">
+                    <img src="slider4.jfif" alt="Gallery Work" class="w-full h-full object-cover">
+                </div>
+                <div class="aspect-square bg-cardBg border border-accentGray rounded-xl overflow-hidden hover:border-gold transition-all">
+                    <img src="slider5.jfif" alt="Gallery Work" class="w-full h-full object-cover">
+                </div>
+                <div class="aspect-square bg-cardBg border border-accentGray rounded-xl overflow-hidden hover:border-gold transition-all">
+                    <img src="slider6.jfif" alt="Gallery Work" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="w-full p-8 bg-black border-t border-accentGray text-center space-y-4">
+            <div class="max-w-7xl mx-auto flex flex-col items-center gap-2">
+                <h3 class="brand-script text-4xl text-gold">Fabulaze Beauty Studio</h3>
+                <p class="text-[10px] text-zinc-600 pt-4">&copy; 2026 Fabulaze Beauty Studio. All rights reserved.</p>
+                <p class="text-[10px] text-zinc-500">Proudly Built by <a href="#" class="text-gold font-semibold hover:underline">Danielle Builds</a></p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
