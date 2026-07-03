@@ -4,21 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Fabulaze Studio - Fabulaze Hair & Beauty</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
     <style>
-        .brand-script { font-family: 'Alex Brush', cursive; }
-        body { font-family: 'Montserrat', sans-serif; background-color: #000000; overflow-x: hidden; }
-        .scroll-reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
-        .scroll-reveal.active { opacity: 1; transform: translateY(0); }
+        .brand-script {
+            font-family: 'Alex Brush', cursive;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #000000;
+            overflow-x: hidden;
+        }
+        /* Custom scroll-driven fade-in animation rules */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform;
+        }
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
     <script>
-        tailwind.config = { theme: { extend: { colors: { gold: '#E2B94F', darkBg: '#000000', cardBg: '#121212', accentGray: '#333333', textColor: '#F3F3F3' } } } }
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#E2B94F',
+                        darkBg: '#000000',
+                        cardBg: '#121212',
+                        accentGray: '#333333',
+                        textColor: '#F3F3F3'
+                    }
+                }
+            }
+        }
         
-        function toggleMobileMenu() { document.getElementById('mobileMenu').classList.toggle('hidden'); }
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+        
+        function toggleDropdown(id) {
+            const dropdown = document.getElementById(id);
+            dropdown.classList.toggle('hidden');
+        }
+
         function toggleServiceAccordion(id) {
             const target = document.getElementById(id);
             const icon = document.getElementById(id + '-icon');
+            
             if (target.classList.contains('hidden')) {
                 target.classList.remove('hidden');
                 icon.style.transform = 'rotate(180deg)';
@@ -27,77 +69,325 @@
                 icon.style.transform = 'rotate(0deg)';
             }
         }
+
+        // Intersection Observer logic for scroll animations
+        document.addEventListener("DOMContentLoaded", () => {
+            const reveals = document.querySelectorAll('.scroll-reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            });
+            
+            reveals.forEach(el => observer.observe(el));
+        });
     </script>
 </head>
-<body class="text-textColor antialiased min-h-screen bg-black">
+<body class="text-textColor antialiased min-h-screen bg-black flex flex-col items-center">
 
+    <!-- FULL WIDTH CONTAINER FOR LAPTOPS -->
     <div class="w-full bg-darkBg min-h-screen flex flex-col">
-        <!-- HEADER -->
+        
+        <!-- HEADER WITH MOBILE OPTIMIZATION & HAMBURGER -->
         <header class="w-full p-6 border-b border-accentGray bg-black sticky top-0 z-50">
             <div class="max-w-7xl mx-auto flex items-center justify-between">
-                <a href="index.html" class="brand-script text-4xl text-gold tracking-wide">Fabulaze Hair & Beauty</a>
-                <button onclick="toggleMobileMenu()" class="lg:hidden text-gold"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
-                <nav class="hidden lg:flex gap-8 text-xs font-semibold uppercase tracking-wider">
-                    <a href="index.html" class="hover:text-gold">Home</a>
-                    <a href="#" class="text-gold">About Us</a>
-                    <a href="#" class="hover:text-gold">Services</a>
-                    <a href="#" class="hover:text-gold">Contact Us</a>
+                <div class="text-left">
+                    <a href="index.html" class="brand-script text-4xl text-gold tracking-wide select-none block">Fabulaze Hair & Beauty</a>
+                </div>
+
+                <!-- Hamburger Trigger for Mobile/Tablet -->
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-gold focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+
+                <!-- Desktop Navigation Menu -->
+                <nav class="hidden lg:flex items-center gap-8 text-xs font-semibold tracking-wider uppercase">
+                    <a href="index.html" class="hover:text-gold transition-colors">Home</a>
+                    <a href="#" class="text-gold transition-colors">About Us</a>
+                    <a href="beauty-studio.html" class="hover:text-gold transition-colors">BeautyStudio by Danica</a>
+                    
+                    <div class="relative group">
+                        <button class="hover:text-gold transition-colors flex items-center gap-1 uppercase font-semibold focus:outline-none">
+                            Fabulaze Studio <span class="text-[10px]">▼</span>
+                        </button>
+                        <div class="absolute left-0 mt-2 py-2 w-48 bg-cardBg border border-gold rounded shadow-xl hidden group-hover:block">
+                            <a href="#" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Nail Studio</a>
+                            <a href="#" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Beautician Nunu</a>
+                            <a href="#" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Fabulaze by Anika</a>
+                        </div>
+                    </div>
+
+                    <div class="relative group">
+                        <button class="hover:text-gold transition-colors flex items-center gap-1 uppercase font-semibold focus:outline-none">
+                            Fabulaze Hair <span class="text-[10px]">▼</span>
+                        </button>
+                        <div class="absolute left-0 mt-2 py-2 w-48 bg-cardBg border border-gold rounded shadow-xl hidden group-hover:block">
+                            <a href="#" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Hair by Elsja</a>
+                            <a href="#" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Hair by Monique</a>
+                            <a href="#" class="block py-2 px-4 text-xs text-gold hover:bg-accentGray">Hair by Dominique</a>
+                        </div>
+                    </div>
+
+                    <a href="#" class="hover:text-gold transition-colors">Our Work</a>
+                    <a href="#" class="hover:text-gold transition-colors">Contact Us</a>
                 </nav>
             </div>
-            <div id="mobileMenu" class="hidden lg:hidden mt-4 pt-4 border-t border-accentGray text-center space-y-3 uppercase text-sm">
-                <a href="index.html" class="block py-1">Home</a>
+
+            <!-- Mobile Dropdown Menu Drawer -->
+            <div id="mobileMenu" class="hidden lg:hidden mt-4 pt-4 border-t border-accentGray space-y-3 font-semibold uppercase tracking-wider text-sm text-center">
+                <a href="index.html" class="block hover:text-gold py-1">Home</a>
                 <a href="#" class="block text-gold py-1">About Us</a>
-                <a href="#" class="block py-1">Services</a>
+                <a href="beauty-studio.html" class="block hover:text-gold py-1">BeautyStudio by Danica</a>
+                
+                <div>
+                    <button onclick="toggleDropdown('mobDrop1')" class="w-full text-center hover:text-gold py-1 flex justify-center items-center gap-1">
+                        <span>Fabulaze Studio</span> <span class="text-[10px]">▼</span>
+                    </button>
+                    <div id="mobDrop1" class="hidden bg-cardBg border border-gold mt-1 space-y-2 py-2 rounded">
+                        <a href="#" class="block text-xs text-gold py-1">Nail Studio</a>
+                        <a href="#" class="block text-xs text-gold py-1">Beautician Nunu</a>
+                        <a href="#" class="block text-xs text-gold py-1">Fabulaze by Anika</a>
+                    </div>
+                </div>
+
+                <div>
+                    <button onclick="toggleDropdown('mobDrop2')" class="w-full text-center hover:text-gold py-1 flex justify-center items-center gap-1">
+                        <span>Fabulaze Hair</span> <span class="text-[10px]">▼</span>
+                    </button>
+                    <div id="mobDrop2" class="hidden bg-cardBg border border-gold mt-1 space-y-2 py-2 rounded">
+                        <a href="#" class="block text-xs text-gold py-1">Hair by Elsja</a>
+                        <a href="#" class="block text-xs text-gold py-1">Hair by Monique</a>
+                        <a href="#" class="block text-xs text-gold py-1">Hair by Dominique</a>
+                    </div>
+                </div>
+
+                <a href="#" class="block hover:text-gold py-1">Our Work</a>
+                <a href="#" class="block hover:text-gold py-1">Contact Us</a>
             </div>
         </header>
 
-        <main class="flex-grow py-16">
-            <div class="max-w-4xl mx-auto px-6 space-y-12">
-                <h2 class="text-3xl lg:text-4xl text-gold font-bold uppercase tracking-wide text-center">Our Services</h2>
+        <!-- MAIN LAYOUT HUB -->
+        <main class="flex-grow">
+
+            <!-- HERO SECTION (Using sugarlips.jfif) -->
+            <section class="relative w-full min-h-[300px] lg:h-[400px] border-b border-accentGray flex items-center justify-center overflow-hidden">
+                <div class="absolute inset-0">
+                    <img src="sugarlips.jfif" alt="About Fabulaze Studio Hero" class="w-full h-full object-cover brightness-50">
+                </div>
                 
-                <!-- Services Accordion -->
-                <div class="space-y-4">
-                    <!-- Beauty -->
-                    <div class="border border-accentGray bg-cardBg rounded-xl overflow-hidden hover:border-gold">
-                        <button onclick="toggleServiceAccordion('acc1')" class="w-full p-5 flex justify-between items-center text-left font-bold text-sm uppercase text-white">
-                            Beauty Treatments & PMU <span id="acc1-icon" class="text-gold text-xs transition-transform">▼</span>
-                        </button>
-                        <div id="acc1" class="hidden border-t border-accentGray p-5 text-sm space-y-3">
-                            <p>Permanent Make up, Lashes, Brows, Laser, Lipo, Facials & Botox: <a href="https://book.heygoldie.com/Fabulaze-BeautyStudio" class="text-gold underline">Book Online</a></p>
-                            <p>Nails, Waxing, Fat Loss Injections: <a href="https://www.appointfix.com/Cute-Ickes-fabulaze" class="text-gold underline">Book Online</a></p>
-                            <p>Advanced Skincare, Peels & Massage: <a href="https://www.fresha.com/book-now/fabulaze-hair-studio-zh7pwvce/services?lid=2593720&eid=5392979&share=true&pId=1279095" class="text-gold underline">Book Online</a></p>
+                <div class="relative z-10 text-center space-y-3 px-6">
+                    <h2 class="text-gold font-bold text-4xl lg:text-5xl uppercase tracking-wider">About Fabulaze Studio</h2>
+                    <p class="text-white text-xs lg:text-sm font-semibold tracking-widest uppercase italic bg-black bg-opacity-40 px-4 py-1.5 inline-block rounded-md">
+                        Affordable Beauty Treatments in Cape Town
+                    </p>
+                </div>
+            </section>
+
+            <!-- STRUCTURAL CONTENT WRAPPER -->
+            <div class="w-full space-y-24 py-16">
+
+                <!-- STORY SECTION: NARRATIVE NEXT TO FS DANICA.PNG -->
+                <section class="w-full px-6 scroll-reveal">
+                    <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+                        
+                        <!-- Left Column: Story Blocks -->
+                        <div class="w-full lg:w-7/12 flex flex-col justify-center space-y-6 order-2 lg:order-1">
+                            <div class="text-center lg:text-left space-y-5">
+                                <h2 class="text-3xl lg:text-4xl text-gold font-bold uppercase tracking-wide">LET’S TALK ABOUT BEAUTY</h2>
+                                
+                                <div class="space-y-4 text-zinc-300 text-sm lg:text-base leading-relaxed text-justify">
+                                    <p>
+                                        Fabulaze Beauty Studio started as a Covid baby in 2020 by two best friends Danica & Anika.
+                                    </p>
+                                    <p>
+                                        Danica, a qualified Play Therapist, and Anika, a Hairdresser, had to find a way to support themselves when Schools & Hairdressers were forced to stay closed. They transformed the Play therapy office into a beauty Studio & only offered Permanent Laser Hair Removal, Laser Lipo Treatments & Eyelash Extensions.
+                                    </p>
+                                    <p>
+                                        Fabulaze has grown with lots of training, & another lady boss joining the team. We now offer a wide range of treatments from Acrylic Nails, Waxing, Spray Tan to Semi Permanent Make up & many more. We also have a Botox day every month.
+                                    </p>
+                                    <p>
+                                        The difference between Fabulaze and some other salons is the warm, casual feeling in our open plan Studio where we have chats and laughs — you are treated as family or a friend. We want everybody to feel welcome, also those clients that do not feel comfortable in a high-end salon.
+                                    </p>
+                                    <p class="border-l-2 border-gold pl-4 italic text-zinc-100">
+                                        Our motto is <strong class="text-gold font-semibold">"We make Beauty Affordable"</strong> and that is why we strive to keep our prices affordable, our products the best quality, our Service fabulaze and the best quality workmanship.
+                                    </p>
+                                    <p class="font-semibold text-white pt-2">
+                                        At Fabulaze Beauty Studio you will be made to feel fabulaze. We look forward to meeting you!
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto lg:mx-0 pt-4">
+                                <button class="bg-gold text-black px-8 py-3 rounded font-bold text-xs uppercase tracking-wider transition-transform hover:scale-105 active:scale-95 flex-1">
+                                    Book Treatment
+                                </button>
+                                <button class="border border-gold text-gold px-8 py-3 rounded font-bold text-xs uppercase tracking-wider transition-transform hover:scale-105 active:scale-95 hover:bg-gold hover:text-black flex-1">
+                                    Contact Team
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Image Asset -->
+                        <div class="w-full lg:w-5/12 max-w-md lg:max-w-none bg-zinc-900 border border-accentGray rounded-3xl overflow-hidden shadow-2xl flex-shrink-0 order-1 lg:order-2">
+                            <img src="FS Danica.png" alt="FS Danica" class="w-full h-auto object-cover block">
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- SERVICE LINKS & ACCORDION SYSTEM -->
+                <section class="w-full px-6 scroll-reveal">
+                    <div class="max-w-4xl mx-auto space-y-8">
+                        
+                        <div class="text-center space-y-3">
+                            <h3 class="text-white text-xs font-semibold tracking-widest uppercase text-gold">WELCOME to our VIP Group</h3>
+                            <h2 class="text-2xl lg:text-3xl font-bold uppercase tracking-wider text-white">Our Services & Booking Hub</h2>
+                            <p class="text-sm text-zinc-400">
+                                <strong>Location:</strong> ME Rothman Str, Parow North, Cape Town 
+                                <a href="https://maps.app.goo.gl/j5BAZQSLZmcvC88d8" target="_blank" class="text-gold hover:underline inline-flex items-center gap-1 ml-1 font-semibold text-xs">
+                                    (View Google Map)
+                                </a>
+                            </p>
+                            <p class="text-xs text-zinc-300">
+                                Chat & Booking WhatsApp: <span class="text-gold font-semibold">082 689 9726</span><br>
+                                <span class="italic text-zinc-400">Message us directly for a full price list sheet.</span>
+                            </p>
+                        </div>
+
+                        <div class="space-y-4">
+                            
+                            <!-- Accordion 1: Beauty Studio Services (Group A) -->
+                            <div class="border border-accentGray bg-cardBg rounded-xl overflow-hidden transition-colors duration-300 hover:border-gold">
+                                <button onclick="toggleServiceAccordion('studioAcc1')" class="w-full p-5 flex items-center justify-between text-left focus:outline-none select-none">
+                                    <span class="text-white font-bold text-sm uppercase tracking-wider flex items-center gap-2">
+                                        <span>Beauty Studio:</span> <span class="text-gold font-normal normal-case text-xs">Permanent Make up, Lashes, Brows, Laser & Facials</span>
+                                    </span>
+                                    <span id="studioAcc1-icon" class="text-gold text-xs transition-transform duration-300">▼</span>
+                                </button>
+                                <div id="studioAcc1" class="hidden border-t border-accentGray bg-black bg-opacity-40 p-5 text-xs lg:text-sm text-zinc-300 space-y-4">
+                                    <p class="leading-relaxed">
+                                        <strong>Available Treatments:</strong> Permanent Make up, Lash Extensions, Brows, Laser Hair Removal, Lipo Laser, Carbon & Dermaplaning Facials, Microneedling, Make Overs & Facial Botox.
+                                    </p>
+                                    <div class="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-t border-zinc-800 text-xs">
+                                        <span>Contact: <strong class="text-white">082 689 9726</strong></span>
+                                        <a href="https://book.heygoldie.com/Fabulaze-BeautyStudio" target="_blank" class="bg-gold text-black px-4 py-2 rounded font-bold uppercase tracking-wider text-[10px] text-center transition-transform hover:scale-105">
+                                            Book Online Now
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Accordion 2: Beauty Studio Services (Group B) -->
+                            <div class="border border-accentGray bg-cardBg rounded-xl overflow-hidden transition-colors duration-300 hover:border-gold">
+                                <button onclick="toggleServiceAccordion('studioAcc2')" class="w-full p-5 flex items-center justify-between text-left focus:outline-none select-none">
+                                    <span class="text-white font-bold text-sm uppercase tracking-wider flex items-center gap-2">
+                                        <span>Beauty Studio:</span> <span class="text-gold font-normal normal-case text-xs">Nails, Waxing & Slimming Injections</span>
+                                    </span>
+                                    <span id="studioAcc2-icon" class="text-gold text-xs transition-transform duration-300">▼</span>
+                                </button>
+                                <div id="studioAcc2" class="hidden border-t border-accentGray bg-black bg-opacity-40 p-5 text-xs lg:text-sm text-zinc-300 space-y-4">
+                                    <p class="leading-relaxed">
+                                        <strong>Available Treatments:</strong> Top & Toe Nails, Waxing, Lipolytic Fat Loss Injections, Manicures & Pedicures.
+                                    </p>
+                                    <div class="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-t border-zinc-800 text-xs">
+                                        <span>Contact WhatsApp: <strong class="text-white">072 410 5517</strong></span>
+                                        <a href="https://www.appointfix.com/Cute-Ickes-fabulaze" target="_blank" class="bg-gold text-black px-4 py-2 rounded font-bold uppercase tracking-wider text-[10px] text-center transition-transform hover:scale-105">
+                                            Book Online Now
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Accordion 3: Beauty Studio Services (Group C) -->
+                            <div class="border border-accentGray bg-cardBg rounded-xl overflow-hidden transition-colors duration-300 hover:border-gold">
+                                <button onclick="toggleServiceAccordion('studioAcc3')" class="w-full p-5 flex items-center justify-between text-left focus:outline-none select-none">
+                                    <span class="text-white font-bold text-sm uppercase tracking-wider flex items-center gap-2">
+                                        <span>Beauty Studio:</span> <span class="text-gold font-normal normal-case text-xs">Senior Beautician Skincare & Massage Treatments</span>
+                                    </span>
+                                    <span id="studioAcc3-icon" class="text-gold text-xs transition-transform duration-300">▼</span>
+                                </button>
+                                <div id="studioAcc3" class="hidden border-t border-accentGray bg-black bg-opacity-40 p-5 text-xs lg:text-sm text-zinc-300 space-y-4">
+                                    <p class="leading-relaxed">
+                                        <strong>Available Treatments:</strong> Specialized Facials, Chemical Peels, Full Body Waxing, Relaxing Massages & Premium Lash Extensions.
+                                    </p>
+                                    <div class="pt-2 flex justify-end border-t border-zinc-800">
+                                        <a href="https://www.fresha.com/book-now/fabulaze-hair-studio-zh7pwvce/services?lid=2593720&eid=5392979&share=true&pId=1279095" target="_blank" class="bg-gold text-black px-4 py-2 rounded font-bold uppercase tracking-wider text-[10px] transition-transform hover:scale-105">
+                                            Book Online Now
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Accordion 4: Hair Studio Options -->
+                            <div class="border border-accentGray bg-cardBg rounded-xl overflow-hidden transition-colors duration-300 hover:border-gold">
+                                <button onclick="toggleServiceAccordion('studioAcc4')" class="w-full p-5 flex items-center justify-between text-left focus:outline-none select-none">
+                                    <span class="text-white font-bold text-sm uppercase tracking-wider flex items-center gap-2">
+                                        <span>Hair Studio:</span> <span class="text-gold font-normal normal-case text-xs">Senior & Junior Stylists, Specialized Cuts & Treatments</span>
+                                    </span>
+                                    <span id="studioAcc4-icon" class="text-gold text-xs transition-transform duration-300">▼</span>
+                                </button>
+                                <div id="studioAcc4" class="hidden border-t border-accentGray bg-black bg-opacity-40 p-5 text-xs lg:text-sm text-zinc-300 space-y-4">
+                                    <div class="space-y-4 divide-y divide-zinc-800">
+                                        <div class="pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                            <p><strong>Senior Stylist & Brazilian/MK/Botox Extraordinaire:</strong> Specialized in stunning blondes and structural hair reconstruction.</p>
+                                            <a href="https://shorturl.at/TPpkK" target="_blank" class="border border-gold text-gold hover:bg-gold hover:text-black px-3 py-1.5 rounded font-bold uppercase tracking-wider text-[10px] whitespace-nowrap text-center transition-colors">Book Option 1</a>
+                                        </div>
+                                        <div class="py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                            <p><strong>Senior Cutting Queen & Stylist:</strong> Professional precision hair design, cutting strategies, and modern styling solutions.</p>
+                                            <a href="https://shorturl.at/nskpm" target="_blank" class="border border-gold text-gold hover:bg-gold hover:text-black px-3 py-1.5 rounded font-bold uppercase tracking-wider text-[10px] whitespace-nowrap text-center transition-colors">Book Option 2</a>
+                                        </div>
+                                        <div class="pt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                            <p><strong>Junior Stylist:</strong> Creative trending styling applications, standard blowouts, and foundational hair care cuts.</p>
+                                            <a href="https://shorturl.at/LnIBF" target="_blank" class="border border-gold text-gold hover:bg-gold hover:text-black px-3 py-1.5 rounded font-bold uppercase tracking-wider text-[10px] whitespace-nowrap text-center transition-colors">Book Option 3</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
+                </section>
 
-                    <!-- Hair -->
-                    <div class="border border-accentGray bg-cardBg rounded-xl overflow-hidden hover:border-gold">
-                        <button onclick="toggleServiceAccordion('acc2')" class="w-full p-5 flex justify-between items-center text-left font-bold text-sm uppercase text-white">
-                            Hair Styling Services <span id="acc2-icon" class="text-gold text-xs transition-transform">▼</span>
-                        </button>
-                        <div id="acc2" class="hidden border-t border-accentGray p-5 text-sm space-y-3">
-                            <p>Hair & Brazilian/Botox Treatments: <a href="https://shorturl.at/TPpkK" class="text-gold underline">Book Appointment</a></p>
-                            <p>Professional Cutting & Styling: <a href="https://shorturl.at/nskpm" class="text-gold underline">Book Appointment</a></p>
-                            <p>Junior Styling Services: <a href="https://shorturl.at/LnIBF" class="text-gold underline">Book Appointment</a></p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="text-center text-zinc-400 text-sm pt-8">
-                    <p>Location: Parow North, Cape Town, ME Rothman Str.</p>
-                    <p>For Price Lists or Inquiries: WhatsApp <a href="tel:0826899726" class="text-gold font-bold">082 689 9726</a></p>
-                </div>
             </div>
+
         </main>
 
-        <!-- FOOTER -->
+        <!-- FULL-WIDTH FOOTER BLOCK WITH SOCIAL ICONS & CREDITS -->
         <footer class="w-full p-8 bg-black border-t border-accentGray text-center space-y-4">
-            <div class="flex justify-center gap-6 text-gold text-2xl">
-                <a href="#"><i class="fa fa-facebook"></i>Facebook</a> 
-                <a href="#"><i class="fa fa-instagram"></i>Instagram</a>
+            <div class="max-w-7xl mx-auto flex flex-col items-center space-y-4">
+                <div>
+                    <h3 class="brand-script text-4xl text-gold">Fabulaze Hair & Beauty</h3>
+                    <p class="text-xs text-gold font-bold tracking-widest uppercase italic">We Make Beauty Affordable</p>
+                </div>
+
+                <!-- Social Media SVG Links -->
+                <div class="flex items-center gap-4 text-gold py-1">
+                    <a href="#" aria-label="Facebook Profile Link" class="hover:text-white transition-colors">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/>
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Instagram Profile Link" class="hover:text-white transition-colors">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="text-[10px] text-zinc-600 space-y-1">
+                    <p>&copy; 2026 Fabulaze Hair & Beauty. All rights reserved.</p>
+                    <p class="text-zinc-500 font-medium">Proudly Built by Danielle Builds</p>
+                </div>
             </div>
-            <p class="brand-script text-2xl text-gold">Fabulaze Hair & Beauty</p>
-            <p class="text-[10px] text-zinc-500 uppercase tracking-widest">Proudly Built by Danielle Builds</p>
         </footer>
+
     </div>
+
 </body>
 </html>
