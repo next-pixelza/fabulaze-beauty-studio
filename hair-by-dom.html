@@ -16,8 +16,37 @@
     <script>
         tailwind.config = { theme: { extend: { colors: { gold: '#E2B94F', darkBg: '#000000', cardBg: '#121212', accentGray: '#333333', textColor: '#F3F3F3' } } } }
         
-        function toggleMobileMenu() { document.getElementById('mobileMenu').classList.toggle('hidden'); }
-        function toggleDropdown(id) { document.getElementById(id).classList.toggle('hidden'); }
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const btn = document.querySelector('[aria-controls="mobileMenu"]');
+            const isHidden = menu.classList.toggle('hidden');
+            if (btn) btn.setAttribute('aria-expanded', String(!isHidden));
+        }
+
+        function toggleDropdown(id) {
+            const dropdowns = ['desktopDrop1', 'desktopDrop2', 'mobDrop1', 'mobDrop2'];
+            dropdowns.forEach(dropId => {
+                if (dropId !== id) {
+                    const target = document.getElementById(dropId);
+                    if (target) target.classList.add('hidden');
+                    const otherBtn = document.querySelector(`[onclick*="${dropId}"]`);
+                    if (otherBtn && otherBtn.hasAttribute('aria-expanded')) otherBtn.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            const dropdown = document.getElementById(id);
+            if (dropdown) {
+                const nowHidden = dropdown.classList.toggle('hidden');
+                const btn = document.querySelector(`[onclick*="${id}"]`);
+                if (btn && btn.hasAttribute('aria-expanded')) btn.setAttribute('aria-expanded', String(!nowHidden));
+            }
+        }
+
+        function selectOption(id) {
+            const dropdown = document.getElementById(id);
+            if (dropdown) dropdown.classList.add('hidden');
+        }
+
         function toggleServiceAccordion(id) {
             const target = document.getElementById(id);
             const icon = document.getElementById(id + '-icon');
@@ -42,8 +71,18 @@
 
     <div class="w-full bg-darkBg min-h-screen flex flex-col">
         <!-- HEADER -->
-        <nav aria-label="Primary" class="hidden lg:flex items-center gap-6 text-xs font-semibold tracking-wider uppercase">
-                    <a href="#" class="text-gold transition-colors">Home</a>
+        <header class="w-full p-6 border-b border-accentGray bg-black sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+                <div class="text-left">
+                    <h1 class="brand-script text-4xl text-gold tracking-wide select-none">Fabulaze Hair & Beauty</h1>
+                </div>
+
+                <button onclick="toggleMobileMenu()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileMenu" class="lg:hidden p-2 text-gold focus:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+
+                <nav aria-label="Primary" class="hidden lg:flex items-center gap-6 text-xs font-semibold tracking-wider uppercase">
+                    <a href="index.html" class="hover:text-gold transition-colors">Home</a>
                     <a href="Fabulaze-Beauty.html" class="hover:text-gold transition-colors">About Us</a>
                     <a href="beauty-studio.html" class="hover:text-gold transition-colors">BeautyStudio by Danica</a>
                     
@@ -95,7 +134,7 @@
 
             <!-- Mobile Menu -->
             <div id="mobileMenu" class="hidden lg:hidden mt-4 pt-4 border-t border-accentGray space-y-3 font-semibold uppercase tracking-wider text-sm text-center">
-                <a href="#" class="block text-gold py-1">Home</a>
+                <a href="index.html" class="block hover:text-gold py-1">Home</a>
                 <a href="Fabulaze-Beauty.html" class="block hover:text-gold py-1">About Us</a>
                 <a href="beauty-studio.html" class="block hover:text-gold py-1">BeautyStudio by Danica</a>
                 
@@ -195,7 +234,7 @@
             </div>
         </main>
 
-        <<footer class="w-full p-8 bg-black border-t border-accentGray text-center space-y-4">
+        <footer class="w-full p-8 bg-black border-t border-accentGray text-center space-y-4">
             <div class="max-w-7xl mx-auto flex flex-col items-center gap-2">
                 <h3 class="brand-script text-4xl text-gold">Fabulaze Hair & Beauty</h3>
                 <p class="text-xs text-gold font-bold tracking-widest uppercase italic">We Make Beauty Affordable</p>
