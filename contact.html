@@ -8,27 +8,91 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-    
+
     <style>
         .brand-script { font-family: 'Alex Brush', cursive; }
         body { font-family: 'Montserrat', sans-serif; background-color: #000000; overflow-x: hidden; }
+        .scroll-reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; will-change: opacity, transform; }
+        .scroll-reveal.active { opacity: 1; transform: translateY(0); }
     </style>
     <script>
         tailwind.config = { theme: { extend: { colors: { gold: '#E2B94F', darkBg: '#000000', cardBg: '#121212', accentGray: '#333333', textColor: '#F3F3F3' } } } }
-        
-        function toggleMobileMenu() { document.getElementById('mobileMenu').classList.toggle('hidden'); }
-        function toggleDropdown(id) { document.getElementById(id).classList.toggle('hidden'); }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const btn = document.querySelector('[aria-controls="mobileMenu"]');
+            const isHidden = menu.classList.toggle('hidden');
+            if (btn) btn.setAttribute('aria-expanded', String(!isHidden));
+        }
+
+        function toggleDropdown(id) {
+            // Close other dropdowns if open to keep navigation clean
+            const dropdowns = ['desktopDrop1', 'desktopDrop2', 'mobDrop1', 'mobDrop2'];
+            dropdowns.forEach(dropId => {
+                if (dropId !== id) {
+                    const target = document.getElementById(dropId);
+                    if (target) target.classList.add('hidden');
+                    const otherBtn = document.querySelector(`[onclick*="${dropId}"]`);
+                    if (otherBtn && otherBtn.hasAttribute('aria-expanded')) otherBtn.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            const dropdown = document.getElementById(id);
+            if (dropdown) {
+                const nowHidden = dropdown.classList.toggle('hidden');
+                const btn = document.querySelector(`[onclick*="${id}"]`);
+                if (btn && btn.hasAttribute('aria-expanded')) btn.setAttribute('aria-expanded', String(!nowHidden));
+            }
+        }
+
+        // Close dropdowns when selecting an option
+        function selectOption(id) {
+            const dropdown = document.getElementById(id);
+            if (dropdown) dropdown.classList.add('hidden');
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const reveals = document.querySelectorAll('.scroll-reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) { entry.target.classList.add('active'); observer.unobserve(entry.target); }
+                });
+            }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+            reveals.forEach(el => observer.observe(el));
+
+            // Close dropdowns if clicking anywhere outside the nav
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.relative') && !e.target.closest('button')) {
+                    ['desktopDrop1', 'desktopDrop2'].forEach(id => {
+                        const drop = document.getElementById(id);
+                        if (drop) drop.classList.add('hidden');
+                    });
+                }
+            });
+        });
     </script>
 </head>
-<body class="text-textColor antialiased min-h-screen bg-black">
+<body class="text-textColor antialiased min-h-screen bg-black flex flex-col items-center">
+
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:bg-gold focus:text-black focus:px-4 focus:py-2 focus:rounded focus:font-bold focus:text-xs focus:uppercase">Skip to content</a>
 
     <div class="w-full bg-darkBg min-h-screen flex flex-col">
-        <!-- HEADER -->
-        <nav aria-label="Primary" class="hidden lg:flex items-center gap-6 text-xs font-semibold tracking-wider uppercase">
-                    <a href="#" class="text-gold transition-colors">Home</a>
+
+        <header class="w-full p-6 border-b border-accentGray bg-black sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+                <div class="text-left">
+                    <a href="index.html" class="block"><h1 class="brand-script text-4xl text-gold tracking-wide select-none">Fabulaze Hair & Beauty</h1></a>
+                </div>
+
+                <button onclick="toggleMobileMenu()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileMenu" class="lg:hidden p-2 text-gold focus:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+
+                <nav aria-label="Primary" class="hidden lg:flex items-center gap-6 text-xs font-semibold tracking-wider uppercase">
+                    <a href="index.html" class="hover:text-gold transition-colors">Home</a>
                     <a href="Fabulaze-Beauty.html" class="hover:text-gold transition-colors">About Us</a>
                     <a href="beauty-studio.html" class="hover:text-gold transition-colors">BeautyStudio by Danica</a>
-                    
+
                     <!-- Fabulaze Studio Dropdown -->
                     <div class="relative">
                         <button onclick="toggleDropdown('desktopDrop1')" aria-haspopup="true" aria-expanded="false" class="hover:text-gold transition-colors flex items-center gap-1 uppercase font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded">
@@ -53,7 +117,7 @@
 
                     <a href="monthly-specials.html" class="hover:text-gold transition-colors">Monthly Specials</a>
                     <a href="our-work.html" class="hover:text-gold transition-colors">Our Work</a>
-                    <a href="contact.html" class="hover:text-gold transition-colors">Contact Us</a>
+                    <a href="contact.html" class="text-gold transition-colors">Contact Us</a>
                 </nav>
 
                 <div class="hidden lg:flex items-center gap-5 pl-4 border-l border-accentGray">
@@ -77,10 +141,10 @@
 
             <!-- Mobile Menu -->
             <div id="mobileMenu" class="hidden lg:hidden mt-4 pt-4 border-t border-accentGray space-y-3 font-semibold uppercase tracking-wider text-sm text-center">
-                <a href="#" class="block text-gold py-1">Home</a>
+                <a href="index.html" class="block hover:text-gold py-1">Home</a>
                 <a href="Fabulaze-Beauty.html" class="block hover:text-gold py-1">About Us</a>
                 <a href="beauty-studio.html" class="block hover:text-gold py-1">BeautyStudio by Danica</a>
-                
+
                 <div>
                     <button onclick="toggleDropdown('mobDrop1')" class="w-full text-center hover:text-gold py-1 flex justify-center items-center gap-1">
                         <span>Fabulaze Studio</span> <span class="text-[10px]">▼</span>
@@ -97,13 +161,13 @@
                     <div id="mobDrop2" class="hidden bg-cardBg border border-gold mt-1 space-y-2 py-2 rounded">
                         <a href="hair-by-tosca.html" class="block text-xs text-gold py-1">Hair by Tasha</a>
                         <a href="hair-by-nushy.html" class="block text-xs text-gold py-1">Hair by Nushy</a>
-                        <a href="hair-by-dom.html" class="block text-xs text-gold py-1">Hair by Dominique</a>
+                        <a href="hair-by-do.html" class="block text-xs text-gold py-1">Hair by Dominique</a>
                     </div>
                 </div>
 
                 <a href="monthly-specials.html" class="block hover:text-gold py-1">Monthly Specials</a>
                 <a href="our-work.html" class="block hover:text-gold py-1">Our Work</a>
-                <a href="contact.html" class="block hover:text-gold py-1">Contact Us</a>
+                <a href="contact.html" class="block text-gold py-1">Contact Us</a>
 
                 <div class="flex items-center justify-center gap-6 pt-3">
                     <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="text-zinc-400 hover:text-gold transition-colors">
@@ -124,12 +188,13 @@
             </div>
         </header>
 
-        <!-- MAIN -->
-        <section class="relative w-full min-h-[300px] lg:h-[400px] border-b border-accentGray flex items-center justify-center overflow-hidden">
+        <!-- MAIN CONTENT -->
+        <main id="main-content" class="flex-grow w-full">
+            <section class="relative w-full min-h-[300px] lg:h-[400px] border-b border-accentGray flex items-center justify-center overflow-hidden">
                 <div class="absolute inset-0">
                     <img src="sugarlips.jfif" alt="Contact Fabulaze Studio Hero" class="w-full h-full object-cover brightness-50">
                 </div>
-                
+
                 <div class="relative z-10 text-center space-y-3 px-6">
                     <h2 class="text-gold font-bold text-4xl lg:text-5xl uppercase tracking-wider">Contact Fabulaze Studio</h2>
                     <p class="text-white text-xs lg:text-sm font-semibold tracking-widest uppercase italic bg-black bg-opacity-40 px-4 py-1.5 inline-block rounded-md">
